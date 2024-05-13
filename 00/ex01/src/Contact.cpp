@@ -35,3 +35,36 @@ void	Contact::print_contact()
 	std::cout << "phone number: " << _phone_number << std::endl;
 	std::cout << "darkest secret: " << _darkest_secret << std::endl;
 }
+
+void	printStr(std::string str)
+{
+	size_t	len;
+
+	len = str.length();
+	if (len == 10)
+		std::cout << str.substr(0, 10);
+	else if (len > 10)
+	{
+		std::cout << str.substr(0, 9) << ".";
+	}
+	else if (len < 10)
+	{
+		std::cout << str;
+		while (len > 0)
+		{
+			std::cout << " ";
+			len--;
+		}
+	}
+}
+
+void	Contact::print_contact_row()
+{
+	if (_first_name.empty())
+		return;
+	printStr(_first_name);
+	std::cout << "|";
+	printStr(_last_name);
+	std::cout << "|";
+	printStr(_nickname);
+}
