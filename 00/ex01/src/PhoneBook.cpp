@@ -23,8 +23,12 @@ void PhoneBook::add_Contact(std::string first_name, std::string last_name,
 
 void	PhoneBook::print_Contacts()
 {
+	std::cout << "     index|first name| last name|  nickname" << std::endl;
 	for (int ind = 0; ind < 8; ind ++)
 	{
-		_contacts[ind].print_contact();
+		if (_contacts[ind].empty())
+			break;
+		std::cout << "         " << ind << "|";
+		_contacts[ind].print_contact_row();
 	}
 }

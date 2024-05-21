@@ -1,7 +1,4 @@
 #include "../inc/Contact.hpp"
-#include <iostream>
-#include <ostream>
-#include <string>
 
 Contact::Contact()
 {
@@ -23,6 +20,11 @@ void Contact::fill_contact(std::string first_name, std::string last_name,
 	_nickname = nickname;
 	_phone_number = phone_number;
 	_darkest_secret = darkest_secret;
+}
+
+bool	Contact::empty()
+{
+	return (_first_name.empty());
 }
 
 void	Contact::print_contact()
@@ -49,22 +51,21 @@ void	printStr(std::string str)
 	}
 	else if (len < 10)
 	{
-		std::cout << str;
-		while (len > 0)
+		while (len < 10)
 		{
 			std::cout << " ";
-			len--;
+			len++;
 		}
+		std::cout << str;
 	}
 }
 
 void	Contact::print_contact_row()
 {
-	if (_first_name.empty())
-		return;
 	printStr(_first_name);
 	std::cout << "|";
 	printStr(_last_name);
 	std::cout << "|";
 	printStr(_nickname);
+	std::cout << std::endl;
 }
