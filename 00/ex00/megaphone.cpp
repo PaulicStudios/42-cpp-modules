@@ -9,8 +9,7 @@ int main(int argc, char **args)
 		for (int ind_arg = 1; ind_arg < argc; ind_arg++)
 		{
 			for (int ind_str = 0; args[ind_arg][ind_str]; ind_str++)
-				std::cout << (char)toupper(args[ind_arg][ind_str]);
-			std::cout << (ind_arg == argc - 1 ? "" : " ");
+				std::cout << toupper(args[ind_arg][ind_str]);
 		}
 		std::cout << std::endl;
 	}

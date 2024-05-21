@@ -3,10 +3,6 @@
 PhoneBook::PhoneBook()
 {
 	_ind = 0;
-	for (int ind = 0; ind < 8; ind++)
-	{
-		_contacts[ind] = Contact();
-	}
 }
 
 PhoneBook::~PhoneBook() {}
