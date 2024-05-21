@@ -11,7 +11,12 @@ PhoneBook::PhoneBook()
 
 PhoneBook::~PhoneBook() {}
 
-void PhoneBook::add_Contact(std::string first_name, std::string last_name,
+bool	PhoneBook::empty()
+{
+	return (_contacts[0].empty());
+}
+
+void	PhoneBook::add_Contact(std::string first_name, std::string last_name,
 						std::string nickname, std::string phone_number,
 						std::string darkest_secret)
 {
@@ -31,4 +36,12 @@ void	PhoneBook::print_Contacts()
 		std::cout << "         " << ind << "|";
 		_contacts[ind].print_contact_row();
 	}
+}
+
+bool	PhoneBook::print_Contact(int ind)
+{
+	if (ind < 0 || ind > 7 || _contacts[ind].empty())
+		return (false);
+	_contacts[ind].print_contact();
+	return (true);
 }
