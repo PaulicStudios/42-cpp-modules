@@ -1,13 +1,12 @@
-NAME	:=	phonebook
+NAME	:=	bank
 
 CC		:=	c++
+INCDIR	:=	inc
 CFLAGS	:=  -Wextra -Wall -Werror -std=c++98
 
 VPATH	:=	src
-
-SOURCES	:=	main.cpp \
-			Contact.cpp \
-			PhoneBook.cpp
+SOURCES	:=	Account.cpp \
+			tests.cpp
 
 OBJDIR	:=	obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.o))
@@ -15,11 +14,11 @@ OBJECTS	:=	$(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.o))
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LDFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
 
 $(OBJDIR)/%.o: %.cpp $(INC)
 	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I $(INCDIR) -c $< -o $@
 
 clean:
 	rm -rf $(OBJDIR)
