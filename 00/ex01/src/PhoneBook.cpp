@@ -18,7 +18,7 @@ void	PhoneBook::add_Contact(std::string first_name, std::string last_name,
 {
 	_contacts[_ind].fill_contact(first_name, last_name, nickname, phone_number, darkest_secret);
 	_ind++;
-	if (_ind > 8)
+	if (_ind > 7)
 		_ind = 0;
 }
 
