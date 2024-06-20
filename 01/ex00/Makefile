@@ -5,7 +5,10 @@ INCDIR	:=	inc
 CFLAGS	:=  -Wextra -Wall -Werror -std=c++98
 
 VPATH	:=	src
-SOURCES	:=	Zombie.cpp
+SOURCES	:=	Zombie.cpp \
+			newZombie.cpp \
+			randomChump.cpp \
+			main.cpp
 
 OBJDIR	:=	obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.o))
