@@ -7,4 +7,5 @@ int	main(void)
 	delete zombie;
 
 	randomChump("Zombie Stack");
+	// system("leaks zombie");
 }
