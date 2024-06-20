@@ -6,30 +6,21 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:48:21 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/06/20 16:50:08 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:29:24 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "HumanA.hpp"
-#include "HumanB.hpp"
+#include "Replace.hpp"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
+	if (argc != 4)
 	{
-		Weapon club = Weapon("crude spiked club");
-		HumanA bob("Bob", club);
-		bob.attack();
-		club.setType("some other type of club");
-		bob.attack();
+		std::cerr << "Usage: ./replace <fileName> <s1> <s2>" << std::endl;
+		return (1);
 	}
-	{
-		Weapon club = Weapon("crude spiked club");
-		HumanB jim("Jim");
-		jim.setWeapon(club);
-		jim.attack();
-		club.setType("some other type of club");
-		jim.attack();
-	}
+	Replace	replace(argv[1]);
+	replace.replace(argv[2], argv[3]);
 
-	// system("leaks attack");
+	// system("leaks replace");
 }
