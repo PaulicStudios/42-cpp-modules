@@ -6,17 +6,17 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:50:39 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/06/20 18:07:57 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:12:12 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Harl.hpp"
 
 Harl::Harl() {
-	_levels["DEBUG"] = _debug;
-	_levels["INFO"] = _info;
-	_levels["WARNING"] = _warning;
-	_levels["ERROR"] = _error;
+	_levels.insert(std::pair<std::string, void (Harl::*)(void)>("DEBUG", &Harl::_debug));
+	_levels.insert(std::pair<std::string, void (Harl::*)(void)>("INFO", &Harl::_info));
+	_levels.insert(std::pair<std::string, void (Harl::*)(void)>("WARNING", &Harl::_warning));
+	_levels.insert(std::pair<std::string, void (Harl::*)(void)>("ERROR", &Harl::_error));
 }
 
 Harl::~Harl() {}
@@ -43,7 +43,7 @@ void	Harl::_error(void)
 
 void	Harl::complain(std::string level)
 {
-	auto find = _levels.find(level);
+	std::map<std::string, void (Harl::*)()>::iterator find = _levels.find(level);
 
 	if (find != _levels.end())
 		(this->*find->second)();
