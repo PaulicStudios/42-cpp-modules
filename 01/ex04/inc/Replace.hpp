@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:48:14 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/06/20 17:26:52 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:16:23 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
+#include <cstring>
 
 class Replace {
 	private:

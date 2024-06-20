@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:50:39 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/06/20 17:27:57 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:15:42 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 Replace::Replace(std::string filename)
 {
-	_inFile.open(filename, std::fstream::in);
+	_inFile.open(filename.c_str(), std::fstream::in);
 	if (_inFile.fail())
 	{
 		std::cerr << "Error: could not open in file" << std::endl;
 		exit(1);
 	}
-	_outFile.open(filename + ".replace", std::fstream::out | std::fstream::trunc);
+	filename.append(".replace");
+	_outFile.open(filename.c_str(), std::fstream::out | std::fstream::trunc);
 	if (_outFile.fail())
 	{
 		std::cerr << "Error: could not open out file" << std::endl;
