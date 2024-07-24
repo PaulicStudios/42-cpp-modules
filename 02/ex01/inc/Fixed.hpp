@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:47:26 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/24 15:01:10 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:37:49 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <string>
 #include <iostream>
+#include <cmath>
 
 class Fixed {
 	private:

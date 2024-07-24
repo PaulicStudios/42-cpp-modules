@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:47:26 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/24 15:54:01 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:42:57 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <string>
 #include <iostream>
+#include <cmath>
 
 class Fixed {
 	private:
@@ -43,6 +44,11 @@ class Fixed {
 		void	setRawBits(int const raw);
 		float	toFloat(void) const;
 		int		toInt(void) const;
+
+		Fixed&			min(Fixed &a, Fixed &b);
+		const Fixed&	min(const Fixed &a, const Fixed &b);
+		Fixed&			max(Fixed &a, Fixed &b);
+		const Fixed&	max(const Fixed &a, const Fixed &b);
 };
 
 std::ostream& operator<<(std::ostream &out, const Fixed &fixed);

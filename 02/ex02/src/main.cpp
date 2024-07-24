@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:10:38 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/24 16:07:32 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:47:50 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,18 @@ int	main( void )
 	Fixed c(3);
 	Fixed d(2);
 
-	std::cout << c + d << std::endl;
-	std::cout << c - d << std::endl;
-	std::cout << c * d << std::endl;
-	std::cout << c / d << std::endl;
+	std::cout << "c + d = " << c + d << std::endl;
+	std::cout << "c - d = " << c - d << std::endl;
+	std::cout << "c * d = " << c * d << std::endl;
+	std::cout << "c / d = " << c / d << std::endl;
+
+	std::cout << "c > d " << (c > d) << std::endl;
+	std::cout << "c < d " << (c < d) << std::endl;
+	std::cout << "c >= d " << (c >= d) << std::endl;
+	std::cout << "c <= d " << (c <= d) << std::endl;
+	c = d;
+	std::cout << "c == d " << (c == d) << std::endl;
+	std::cout << "c != d " << (c != d) << std::endl;
 
 	return 0;
 }
