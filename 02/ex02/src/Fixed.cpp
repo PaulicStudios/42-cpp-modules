@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 19:24:57 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/24 16:44:48 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:12:12 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,32 @@ Fixed	Fixed::operator*(const Fixed &right) const
 Fixed	Fixed::operator/(const Fixed &right) const
 {
 	return (this->toFloat() / right.toFloat());
+}
+
+Fixed&	Fixed::operator++()
+{
+	_nbr++;
+	return (*this);
+}
+
+Fixed	Fixed::operator++(int)
+{
+	Fixed tmp(*this);
+	_nbr++;
+	return (tmp);
+}
+
+Fixed&	Fixed::operator--()
+{
+	_nbr--;
+	return (*this);
+}
+
+Fixed	Fixed::operator--(int)
+{
+	Fixed tmp(*this);
+	_nbr--;
+	return (tmp);
 }
 
 bool	Fixed::operator>(const Fixed &right) const
