@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:47:26 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/24 14:17:41 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:01:10 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ class Fixed {
 		Fixed(const float nbr);
 		Fixed(const Fixed &fixed);
 		Fixed& operator=(const Fixed &fixed);
-		ostream& operator<<(ostream &out, const Fixed &fixed);
 		~Fixed();
 		int		getRawBits() const;
 		void	setRawBits(int const raw);
 		float	toFloat(void) const;
 		int		toInt(void) const;
 };
+
+std::ostream& operator<<(std::ostream &out, const Fixed &fixed);

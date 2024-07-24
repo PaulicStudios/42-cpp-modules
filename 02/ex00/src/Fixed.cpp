@@ -6,12 +6,11 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 19:24:57 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/23 19:36:06 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:19:20 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
-#include <iostream>
 
 Fixed::Fixed()
 {
