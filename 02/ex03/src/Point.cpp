@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.hpp                                          :+:      :+:    :+:   */
+/*   Point.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 18:15:13 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/24 18:26:48 by pgrossma         ###   ########.fr       */
+/*   Created: 2024/07/24 18:19:13 by pgrossma          #+#    #+#             */
+/*   Updated: 2024/07/24 18:26:44 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "Point.hpp"
 
-#include "Fixed.hpp"
+Point::Point() : _x(0), _y(0) {}
 
-class Point {
-	private:
-		const Fixed _x;
-		const Fixed _y;
-	public:
-		Point();
-		~Point();
-		Point(const float x, const float y);
-		Point(const Point &point);
-		Point& operator=(Point &point);
-		static bool bsp(const Point a, const Point b, const Point c, const Point point);
+Point::Point(const float x, const float y) : _x(x), _y(y) {}
 
-		Fixed getX() const;
-		Fixed getY() const;
+Point::Point(const Point &point) : _x(point.getX()), _y(point.getY()) {}
+
+Point& Point::operator=(Point &point)
+{
+	return (point);
+}
+
+Point::~Point() {}
+
+Fixed	Point::getX() const
+{
+	return (_x);
+}
+
+Fixed	Point::getY() const
+{
+	return (_y);
 }
