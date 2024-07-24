@@ -6,6 +6,7 @@ CFLAGS	:=  -Wextra -Wall -Werror -std=c++98
 
 VPATH	:=	src
 SOURCES	:=	Fixed.cpp \
+			Point.cpp \
 			main.cpp
 
 OBJDIR	:=	obj

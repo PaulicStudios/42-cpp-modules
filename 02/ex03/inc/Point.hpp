@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:15:13 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/24 18:26:48 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:36:32 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ class Point {
 		Point(const float x, const float y);
 		Point(const Point &point);
 		Point& operator=(Point &point);
-		static bool bsp(const Point a, const Point b, const Point c, const Point point);
 
 		Fixed getX() const;
 		Fixed getY() const;
-}
+
+		static bool bsp(const Point a, const Point b, const Point c, const Point point);
+};
