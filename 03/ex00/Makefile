@@ -1,11 +1,11 @@
-NAME	:=	fixed
+NAME	:=	clapTrap
 
 CC		:=	c++
 INCDIR	:=	inc
 CFLAGS	:=  -Wextra -Wall -Werror -std=c++98
 
 VPATH	:=	src
-SOURCES	:=	Fixed.cpp \
+SOURCES	:=	ClapTrap.cpp \
 			main.cpp
 
 OBJDIR	:=	obj
