@@ -1,4 +1,4 @@
-NAME	:=	scavTrap
+NAME	:=	fragTrap
 
 CC		:=	c++
 INCDIR	:=	inc
@@ -7,6 +7,7 @@ CFLAGS	:=  -Wextra -Wall -Werror -std=c++98
 VPATH	:=	src
 SOURCES	:=	ClapTrap.cpp \
 			ScavTrap.cpp \
+			FragTrap.cpp \
 			main.cpp
 
 OBJDIR	:=	obj
