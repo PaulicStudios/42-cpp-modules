@@ -1,4 +1,4 @@
-NAME	:=	clapTrap
+NAME	:=	scavTrap
 
 CC		:=	c++
 INCDIR	:=	inc

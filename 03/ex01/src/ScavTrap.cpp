@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:41:09 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/25 19:13:59 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:17:32 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ ScavTrap::ScavTrap(std::string name)
 	std::cout << "ScavTrap " << _name << " has been created" << std::endl;
 }
 
-ScavTrap::ScavTrap(ScavTrap const &src)
+ScavTrap::ScavTrap(ScavTrap const &src) : ClapTrap(src)
 {
 	*this = src;
 	std::cout << "ScavTrap " << _name << " has been copied and created" << std::endl;
