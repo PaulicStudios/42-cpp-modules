@@ -24,5 +24,5 @@ class Animal {
 		Animal& operator=(Animal const &Animal);
 		~Animal();
 
-		virtual void	makeSound() const;
+		virtual void	makeSound() const = 0;
 };
