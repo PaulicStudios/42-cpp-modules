@@ -1,4 +1,4 @@
-NAME	:=	polymorphism
+NAME	:=	brain
 
 CC		:=	c++
 INCDIR	:=	inc
@@ -10,6 +10,7 @@ SOURCES	:=	Animal.cpp \
 			Dog.cpp \
 			WrongAnimal.cpp \
 			WrongCat.cpp \
+			Brain.cpp \
 			main.cpp
 
 OBJDIR	:=	obj

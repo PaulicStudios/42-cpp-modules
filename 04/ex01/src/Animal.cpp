@@ -14,6 +14,7 @@
 
 Animal::Animal() {
 	_type = "Animal";
+	_brain = new Brain();
 	std::cout << _type << " has been created" << std::endl;
 }
 
@@ -24,11 +25,13 @@ Animal::Animal(Animal const &Animal) {
 
 Animal& Animal::operator=(Animal const &Animal) {
 	this->_type = Animal._type;
+	_brain = Animal._brain;
 	std::cout << _type << " has been assigned" << std::endl;
 	return (*this);
 }
 
 Animal::~Animal() {
+	delete _brain;
 	std::cout << _type << " has been destroyed" << std::endl;
 }
 
