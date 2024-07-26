@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                       :+:      :+:    :+:   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 16:46:42 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/25 17:55:29 by pgrossma         ###   ########.fr       */
+/*   Created: 2024/07/26 13:34:44 by pgrossma          #+#    #+#             */
+/*   Updated: 2024/07/26 13:36:21 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "Dog.hpp"
 
-Animal::Animal() {
-	_type = "Animal";
+Dog::Dog() {
+	_type = "Dog";
 	std::cout << _type << " has been created" << std::endl;
 }
 
-Animal::Animal(Animal const &Animal) {
-	*this = Animal;
+Dog::Dog(Dog const &Dog) {
+	*this = Dog;
 	std::cout << _type << " has been copied" << std::endl;
 }
 
-Animal& Animal::operator=(Animal const &Animal) {
-	this->_type = Animal._type;
+Dog& Dog::operator=(Dog const &Dog) {
+	this->_type = Dog._type;
 	std::cout << _type << " has been assigned" << std::endl;
 	return (*this);
 }
 
-Animal::~Animal() {
+Dog::~Dog() {
 	std::cout << _type << " has been destroyed" << std::endl;
 }

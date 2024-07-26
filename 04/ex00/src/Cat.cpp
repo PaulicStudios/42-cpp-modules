@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                       :+:      :+:    :+:   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 16:46:42 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/25 17:55:29 by pgrossma         ###   ########.fr       */
+/*   Created: 2024/07/26 13:34:44 by pgrossma          #+#    #+#             */
+/*   Updated: 2024/07/26 13:36:17 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "Cat.hpp"
 
-Animal::Animal() {
-	_type = "Animal";
+Cat::Cat() {
+	_type = "Cat";
 	std::cout << _type << " has been created" << std::endl;
 }
 
-Animal::Animal(Animal const &Animal) {
-	*this = Animal;
+Cat::Cat(Cat const &Cat) {
+	*this = Cat;
 	std::cout << _type << " has been copied" << std::endl;
 }
 
-Animal& Animal::operator=(Animal const &Animal) {
-	this->_type = Animal._type;
+Cat& Cat::operator=(Cat const &Cat) {
+	this->_type = Cat._type;
 	std::cout << _type << " has been assigned" << std::endl;
 	return (*this);
 }
 
-Animal::~Animal() {
+Cat::~Cat() {
 	std::cout << _type << " has been destroyed" << std::endl;
 }

@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                       :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 16:44:53 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/25 17:55:29 by pgrossma         ###   ########.fr       */
+/*   Created: 2024/07/26 13:34:05 by pgrossma          #+#    #+#             */
+/*   Updated: 2024/07/26 13:36:32 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string>
-#include <iostream>
+#include "Animal.hpp"
 
-class Animal {
-	protected:
-		std::string	_type;
+class Dog: public Animal {
 	public:
-		Animal();
-		Animal(Animal const &Animal);
-		Animal& operator=(Animal const &Animal);
-		~Animal();
+		Dog();
+		Dog(Dog const &Dog);
+		Dog& operator=(Dog const &Dog);
+		~Dog(void);
 };
