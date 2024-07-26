@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:34:44 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/26 13:36:21 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:42:51 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,8 @@ Dog& Dog::operator=(Dog const &Dog) {
 
 Dog::~Dog() {
 	std::cout << _type << " has been destroyed" << std::endl;
+}
+
+void Dog::makeSound() const {
+	std::cout << "Wouf wouf wowowof wowowowo fff" << std::endl;
 }

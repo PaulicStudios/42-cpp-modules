@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:34:05 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/26 13:36:29 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:42:09 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,6 @@ class Cat: public Animal {
 		Cat(Cat const &Cat);
 		Cat& operator=(Cat const &Cat);
 		~Cat(void);
+
+		void	makeSound() const;
 };

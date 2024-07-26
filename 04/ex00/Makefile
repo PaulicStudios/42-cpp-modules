@@ -1,11 +1,13 @@
-NAME	:=	clapTrap
+NAME	:=	polymorphism
 
 CC		:=	c++
 INCDIR	:=	inc
 CFLAGS	:=  -Wextra -Wall -Werror -std=c++98
 
 VPATH	:=	src
-SOURCES	:=	ClapTrap.cpp \
+SOURCES	:=	Animal.cpp \
+			Cat.cpp \
+			Dog.cpp \
 			main.cpp
 
 OBJDIR	:=	obj

@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:34:44 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/26 13:36:17 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:42:55 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,8 @@ Cat& Cat::operator=(Cat const &Cat) {
 
 Cat::~Cat() {
 	std::cout << _type << " has been destroyed" << std::endl;
+}
+
+void Cat::makeSound() const {
+	std::cout << "Miaaaooouuuooouuuu" << std::endl;
 }
