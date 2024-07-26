@@ -6,9 +6,11 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:44:53 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/25 17:55:29 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:25:41 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
 
 #include <string>
 #include <iostream>

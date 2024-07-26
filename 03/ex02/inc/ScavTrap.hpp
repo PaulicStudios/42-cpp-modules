@@ -6,9 +6,11 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:41:22 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/25 19:12:39 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:26:02 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
 
 #include "ClapTrap.hpp"
 
