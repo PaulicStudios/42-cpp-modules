@@ -8,6 +8,8 @@ VPATH	:=	src
 SOURCES	:=	Animal.cpp \
 			Cat.cpp \
 			Dog.cpp \
+			WrongAnimal.cpp \
+			WrongCat.cpp \
 			main.cpp
 
 OBJDIR	:=	obj
