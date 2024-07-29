@@ -15,30 +15,35 @@
 Animal::Animal() {
 	_type = "Animal";
 	_brain = new Brain();
-	std::cout << _type << " has been created" << std::endl;
+	std::cout << "Animal: " << _type << " has been created" << std::endl;
 }
 
 Animal::Animal(Animal const &Animal) {
 	*this = Animal;
-	std::cout << _type << " has been copied" << std::endl;
+	std::cout << "Animal: " << _type << " has been copied" << std::endl;
 }
 
 Animal& Animal::operator=(Animal const &Animal) {
 	this->_type = Animal._type;
-	_brain = Animal._brain;
-	std::cout << _type << " has been assigned" << std::endl;
+	_brain = new Brain(*Animal._brain);
+
+	std::cout << "Animal: " << _type << " has been assigned" << std::endl;
 	return (*this);
 }
 
 Animal::~Animal() {
 	delete _brain;
-	std::cout << _type << " has been destroyed" << std::endl;
+	std::cout << "Animal: " << _type << " has been destroyed" << std::endl;
 }
 
 void Animal::makeSound() const {
-	std::cout << "Animal sound" << std::endl;
+	std::cout << "Animal: " << "Animal sound" << std::endl;
 }
 
 std::string Animal::getType() const {
 	return (_type);
+}
+
+Brain* Animal::getBrain() const {
+	return (_brain);
 }

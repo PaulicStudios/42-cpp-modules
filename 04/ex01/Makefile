@@ -2,7 +2,7 @@ NAME	:=	brain
 
 CC		:=	c++
 INCDIR	:=	inc
-CFLAGS	:=  -Wextra -Wall -Werror -std=c++98
+CFLAGS	:=  -Wextra -Wall -Werror -std=c++98 -g
 
 VPATH	:=	src
 SOURCES	:=	Animal.cpp \
