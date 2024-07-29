@@ -1,4 +1,4 @@
-NAME	:=	brain
+NAME	:=	abstractClass
 
 CC		:=	c++
 INCDIR	:=	inc
