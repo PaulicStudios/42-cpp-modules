@@ -23,9 +23,9 @@ class Animal {
 	public:
 		Animal();
 		Animal(Animal const &Animal);
-		Animal& operator=(Animal const &Animal);
-		virtual ~Animal();
+		Animal&	operator=(Animal const &Animal);
+		virtual	~Animal();
 
 		std::string		getType() const;
-		virtual void	makeSound() const = 0;
+		virtual void	makeSound() const;
 };

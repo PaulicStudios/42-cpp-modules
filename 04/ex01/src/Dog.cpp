@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:34:44 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/29 10:51:11 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:30:42 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 Dog::Dog() {
 	_type = "Dog";
-	_brain = new Brain();
 	std::cout << _type << " has been created" << std::endl;
 }
 
@@ -26,6 +25,7 @@ Dog::Dog(Dog const &Dog) : Animal(Dog) {
 Dog& Dog::operator=(Dog const &Dog) {
 	this->_type = Dog._type;
 	_brain = Dog._brain;
+
 	std::cout << _type << " has been assigned" << std::endl;
 	return (*this);
 }

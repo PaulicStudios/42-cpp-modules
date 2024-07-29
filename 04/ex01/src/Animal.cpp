@@ -35,6 +35,10 @@ Animal::~Animal() {
 	std::cout << _type << " has been destroyed" << std::endl;
 }
 
+void Animal::makeSound() const {
+	std::cout << "Animal sound" << std::endl;
+}
+
 std::string Animal::getType() const {
 	return (_type);
 }

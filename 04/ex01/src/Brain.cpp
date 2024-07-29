@@ -6,15 +6,13 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 17:00:33 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/26 17:24:44 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:15:10 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Brain.hpp"
-#include <iostream>
 
 Brain::Brain() {
-	_ideas = new std::string[100];
 	std::cout << "Brain has been created" << std::endl;
 }
 
@@ -32,6 +30,5 @@ Brain& Brain::operator=(Brain const &brain) {
 }
 
 Brain::~Brain() {
-	delete [] _ideas;
 	std::cout << "Brain has been destroyed" << std::endl;
 }
