@@ -19,7 +19,6 @@
 class Animal {
 	protected:
 		std::string	_type;
-		Brain		*_brain;
 	public:
 		Animal();
 		Animal(Animal const &Animal);
@@ -28,5 +27,4 @@ class Animal {
 
 		std::string		getType() const;
 		virtual void	makeSound() const;
-		Brain			*getBrain() const;
 };

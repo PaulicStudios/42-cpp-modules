@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 14:10:38 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/29 12:01:40 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:03:03 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,40 @@
 
 int main()
 {
-	// const Animal* j = new Dog();
-	const Cat* i = new Cat();
-	// std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	i->makeSound(); //will output the cat sound!
+	{
+		const Cat* i = new Cat();
+		std::cout << i->getType() << " " << std::endl;
+		i->makeSound();
 
-	Cat *j = new Cat(*i);
+		Cat *j = new Cat(*i);
 
-	i->getBrain()->setIdea(0, "Idea 1");
+		i->getBrain().setIdea(0, "Idea 1");
 
-	std::cout << j->getType() << ": " << j->getBrain()->getIdea(0) << std::endl;
+		std::cout << j->getType() << ": " << j->getBrain().getIdea(0) << std::endl;
 
-	// j->makeSound();
+		delete j;
+		delete i;
+	}
 
-	// const Animal* meta = new Animal();
-	// meta->makeSound();
-	// delete meta;
+	{
+		Animal	*animals[100];
 
-	delete j;
-	delete i;
+		for (int i = 0; i < 100; i++)
+		{
+			if (i % 2 == 0)
+			{
+				animals[i] = new Cat();
+			}
+			else
+			{
+				animals[i] = new Dog();
+			}
+			animals[i]->makeSound();
+		}
+
+		for (int i = 0; i < 100; i++)
+		{
+			delete animals[i];
+		}
+	}
 }

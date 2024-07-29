@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:34:05 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/29 11:26:52 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:32:12 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "Animal.hpp"
 
 class Cat: public Animal {
+	private:
+		Brain	*_brain;
 	public:
 		Cat();
 		Cat(Cat const &Cat);
@@ -22,4 +24,5 @@ class Cat: public Animal {
 		~Cat();
 
 		void	makeSound() const;
+		Brain	&getBrain() const;
 };
