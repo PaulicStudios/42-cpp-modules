@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:34:44 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/26 14:42:55 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:45:20 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Cat::Cat() {
 	std::cout << _type << " has been created" << std::endl;
 }
 
-Cat::Cat(Cat const &Cat) {
+Cat::Cat(Cat const &Cat) : Animal(Cat) {
 	*this = Cat;
 	std::cout << _type << " has been copied" << std::endl;
 }

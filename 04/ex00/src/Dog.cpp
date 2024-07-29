@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:34:44 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/26 14:42:51 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/29 10:45:33 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Dog::Dog() {
 	std::cout << _type << " has been created" << std::endl;
 }
 
-Dog::Dog(Dog const &Dog) {
+Dog::Dog(Dog const &Dog) : Animal(Dog) {
 	*this = Dog;
 	std::cout << _type << " has been copied" << std::endl;
 }

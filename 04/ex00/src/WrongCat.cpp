@@ -17,7 +17,7 @@ WrongCat::WrongCat() {
 	std::cout << _type << " has been created" << std::endl;
 }
 
-WrongCat::WrongCat(WrongCat const &WrongCat) {
+WrongCat::WrongCat(WrongCat const &WrongCat) : WrongAnimal(WrongCat) {
 	*this = WrongCat;
 	std::cout << _type << " has been copied" << std::endl;
 }
