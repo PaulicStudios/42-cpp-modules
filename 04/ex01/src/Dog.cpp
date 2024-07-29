@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 13:34:44 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/07/29 11:30:42 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:03:22 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,23 @@
 
 Dog::Dog() {
 	_type = "Dog";
-	std::cout << _type << " has been created" << std::endl;
+	std::cout << "Dog: " << _type << " has been created" << std::endl;
 }
 
 Dog::Dog(Dog const &Dog) : Animal(Dog) {
 	*this = Dog;
-	std::cout << _type << " has been copied" << std::endl;
+	std::cout << "Dog: " << _type << " has been copied" << std::endl;
 }
 
-Dog& Dog::operator=(Dog const &Dog) {
-	this->_type = Dog._type;
-	_brain = Dog._brain;
-
-	std::cout << _type << " has been assigned" << std::endl;
+Dog& Dog::operator=(Dog const &dog) {
+	std::cout << "Dog: " << dog._type << " has been assigned" << std::endl;
 	return (*this);
 }
 
 Dog::~Dog() {
-	std::cout << _type << " has been destroyed" << std::endl;
+	std::cout << "Dog: " << _type << " has been destroyed" << std::endl;
 }
 
 void Dog::makeSound() const {
-	std::cout << "Wouf wouf wowowof wowowowo fff" << std::endl;
+	std::cout << "Dog: " << "Wouf wouf wowowof wowowowo fff" << std::endl;
 }
