@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:22:14 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/09/05 15:44:30 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:46:14 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,26 @@ Bureaucrat::Bureaucrat(Bureaucrat const &Bureaucrat) : _name(Bureaucrat._name) {
 Bureaucrat &Bureaucrat::operator=(Bureaucrat const &Bureaucrat) {
 	this->_grade = Bureaucrat._grade;
 	return (*this);
+}
+
+std::string Bureaucrat::getName() const {
+	return (this->_name);
+}
+
+uint Bureaucrat::getGrade() {
+	return (this->_grade);
+}
+
+void Bureaucrat::incrementGrade() {
+	if (this->_grade <= 1) {
+		throw Bureaucrat::GradeTooHighException();
+	}
+	this->_grade--;
+}
+
+void Bureaucrat::decrementGrade() {
+	if (this->_grade >= 150) {
+		throw Bureaucrat::GradeTooLowException();
+	}
+	this->_grade++;
 }
