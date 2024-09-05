@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:22:14 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/09/05 15:46:14 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:50:53 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ Bureaucrat &Bureaucrat::operator=(Bureaucrat const &Bureaucrat) {
 	this->_grade = Bureaucrat._grade;
 	return (*this);
 }
+
+Bureaucrat::~Bureaucrat() {}
 
 std::string Bureaucrat::getName() const {
 	return (this->_name);
