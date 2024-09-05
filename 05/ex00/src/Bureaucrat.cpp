@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:22:14 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/09/05 15:50:53 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/09/05 16:45:32 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ std::string Bureaucrat::getName() const {
 	return (this->_name);
 }
 
-uint Bureaucrat::getGrade() {
+uint Bureaucrat::getGrade() const {
 	return (this->_grade);
 }
 
@@ -54,4 +54,9 @@ void Bureaucrat::decrementGrade() {
 		throw Bureaucrat::GradeTooLowException();
 	}
 	this->_grade++;
+}
+
+std::ostream &operator<<(std::ostream &out, const Bureaucrat &bureaucrat) {
+	out << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
+	return out;
 }

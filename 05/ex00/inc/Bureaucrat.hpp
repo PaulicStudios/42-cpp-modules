@@ -2,6 +2,7 @@
 
 #include <string>
 #include <exception>
+#include <iostream>
 
 class Bureaucrat {
 	private:
@@ -15,7 +16,7 @@ class Bureaucrat {
 		~Bureaucrat();
 
 		std::string	getName() const;
-		uint		getGrade();
+		uint		getGrade() const;
 		void		incrementGrade();
 		void		decrementGrade();
 
@@ -32,3 +33,5 @@ class Bureaucrat {
 			}
 	};
 };
+
+std::ostream &operator<<(std::ostream &out, Bureaucrat &bureaucrat);
