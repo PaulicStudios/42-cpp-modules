@@ -16,9 +16,9 @@ Bureaucrat::Bureaucrat() : _name("default"), _grade(150) {}
 
 Bureaucrat::Bureaucrat(const std::string name, uint grade) : _name(name) {
 	if (grade < 1) {
-		throw Bureaucrat::GradeTooHighException();
+		throw GradeTooHighException();
 	} else if (grade > 150) {
-		throw Bureaucrat::GradeTooLowException();
+		throw GradeTooLowException();
 	}
 	this->_grade = grade;
 }
@@ -32,7 +32,7 @@ Bureaucrat &Bureaucrat::operator=(Bureaucrat const &Bureaucrat) {
 	return (*this);
 }
 
-Bureaucrat::~Bureaucrat() {}
+Bureaucrat::~Bureaucrat() = default;
 
 std::string Bureaucrat::getName() const {
 	return (this->_name);
@@ -44,14 +44,14 @@ uint Bureaucrat::getGrade() const {
 
 void Bureaucrat::incrementGrade() {
 	if (this->_grade <= 1) {
-		throw Bureaucrat::GradeTooHighException();
+		throw GradeTooHighException();
 	}
 	this->_grade--;
 }
 
 void Bureaucrat::decrementGrade() {
 	if (this->_grade >= 150) {
-		throw Bureaucrat::GradeTooLowException();
+		throw GradeTooLowException();
 	}
 	this->_grade++;
 }
