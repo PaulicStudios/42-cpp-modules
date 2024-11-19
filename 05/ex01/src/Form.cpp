@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:26:01 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 15:32:42 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:37:18 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ uint Form::getGradeToSign() const {
 
 uint Form::getGradeToExecute() const {
     return (this->_gradeToExecute);
+}
+
+void Form::beSigned(Bureaucrat const &bureaucrat) {
+    if (bureaucrat.getGrade() > this->_gradeToSign) {
+        throw GradeTooLowException();
+    }
+    this->_signed = true;
 }
 
 std::ostream &operator<<(std::ostream &out, const Form &form) {
