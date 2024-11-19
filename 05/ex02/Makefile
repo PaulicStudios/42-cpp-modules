@@ -8,6 +8,7 @@ VPATH	:=	src
 SOURCES	:=	Bureaucrat.cpp \
 			AForm.cpp \
 			ShrubberyCreationForm.cpp \
+			RobotomyRequestForm.cpp \
 			main.cpp
 
 OBJDIR	:=	obj
