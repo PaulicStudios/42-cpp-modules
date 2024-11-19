@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:49:21 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 15:43:05 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:55:35 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,27 @@
 int main()
 {
 	{
-		Form form("Form1", 1, 1);
+		std::cout << "Form exceptions:" << std::endl;
+		try {
+			Form form("Form1", 0);
+		} catch (std::exception &e) {
+			std::cout << e.what() << std::endl;
+		}
+		try {
+			Form form("Form2", 151);
+		} catch (std::exception &e) {
+			std::cout << e.what() << std::endl;
+		}
 	}
-	Bureaucrat bureaucrat("John", 1);
-	Form form("Form1", 1, 1);
+	std::cout << std::endl;
+	{
+		std::cout << "Form tests:" << std::endl;
+		Form form("Form", 1);
+		std::cout << form << std::endl;
 
-	std::cout << form << std::endl;
+		Bureaucrat bureaucrat("John", 1);
+		bureaucrat.signForm(form);
+	}
 
-	bureaucrat.signForm(form);
 	return (0);
 }

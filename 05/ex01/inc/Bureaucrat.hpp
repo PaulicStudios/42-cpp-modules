@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Form.hpp"
+class Form;
+
 #include <string>
 #include <exception>
 #include <iostream>

@@ -6,11 +6,14 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:26:08 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 15:43:49 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:54:30 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+
+#include "Bureaucrat.hpp"
+class Bureaucrat;
 
 #include <string>
 #include <exception>
@@ -48,6 +51,6 @@ class Form {
                 return ("Grade too low");
             }
     };
-}
+};
 
 std::ostream &operator<<(std::ostream &out, const Form &form);

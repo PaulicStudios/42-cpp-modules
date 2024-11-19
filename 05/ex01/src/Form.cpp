@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:26:01 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 15:44:41 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:53:47 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ void Form::beSigned(Bureaucrat const &bureaucrat) {
 }
 
 std::ostream &operator<<(std::ostream &out, const Form &form) {
-    out << "Form " << form.getName() << " is " << (form.getSigned() ? "signed" : "not signed") << " and requires grade " << form.getGradeToSign() << " to sign and grade " << form.getGradeToExecute() << " to execute";
+    out << "Form " << form.getName() << " is " << (form.getSigned() ? "signed" : "not signed") << " and requires grade " << form.getGradeToSign() << " to sign";
     return (out);
 }
