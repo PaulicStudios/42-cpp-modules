@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:49:21 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 15:55:35 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:57:49 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,23 @@ int main()
 		Form form("Form", 1);
 		std::cout << form << std::endl;
 
-		Bureaucrat bureaucrat("John", 1);
+		Bureaucrat bureaucrat("John", 2);
+		try {
+			bureaucrat.signForm(form);
+		} catch (std::exception &e) {
+			std::cout << e.what() << std::endl;
+		}
+		std::cout << form << std::endl;
+
+		std::cout << "Incrementing bureaucrat grade..." << std::endl;
+		bureaucrat.incrementGrade();
+		std::cout << bureaucrat << std::endl;
+		try {
+			bureaucrat.signForm(form);
+		} catch (std::exception &e) {
+			std::cout << e.what() << std::endl;
+		}
+		std::cout << form << std::endl;
 		bureaucrat.signForm(form);
 	}
 
