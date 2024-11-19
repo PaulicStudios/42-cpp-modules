@@ -1,4 +1,4 @@
-NAME	:=	moreForms
+NAME	:=	intern
 
 CC		:=	c++
 INCDIR	:=	inc
@@ -10,6 +10,7 @@ SOURCES	:=	Bureaucrat.cpp \
 			ShrubberyCreationForm.cpp \
 			RobotomyRequestForm.cpp \
 			PresidentialPardonForm.cpp \
+			Intern.cpp \
 			main.cpp
 
 OBJDIR	:=	obj
