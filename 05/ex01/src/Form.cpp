@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:26:01 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 15:37:18 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:39:42 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void Form::beSigned(Bureaucrat const &bureaucrat) {
     if (bureaucrat.getGrade() > this->_gradeToSign) {
         throw GradeTooLowException();
     }
+    if (this->_signed) {
+        std::cout << "Info: Form already signed" << std::endl;
+        return;
+    }
+
     this->_signed = true;
 }
 
