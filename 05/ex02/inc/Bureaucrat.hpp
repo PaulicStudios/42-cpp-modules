@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Form.hpp"
-class Form;
+#include "AForm.hpp"
+class AForm;
 
 #include <string>
 #include <exception>
@@ -23,7 +23,7 @@ public:
 	void incrementGrade();
 	void decrementGrade();
 
-	void signForm(Form &form) const;
+	void signAForm(AForm &AForm) const;
 
 	class GradeTooHighException final : public std::exception {
 	public:

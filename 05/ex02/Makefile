@@ -1,4 +1,4 @@
-NAME	:=	moreforms
+NAME	:=	moreAForms
 
 CC		:=	c++
 INCDIR	:=	inc
@@ -6,7 +6,7 @@ CFLAGS	:=  -Wextra -Wall -Werror -std=c++17
 
 VPATH	:=	src
 SOURCES	:=	Bureaucrat.cpp \
-			Form.cpp \
+			AForm.cpp \
 			main.cpp
 
 OBJDIR	:=	obj
