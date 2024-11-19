@@ -6,24 +6,23 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:30:53 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 19:32:28 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:43:34 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45), _target("default") {}
+RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45, "default") {}
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequestForm", 72, 45), _target(target) {}
+RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequestForm", 72, 45, target) {}
 
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &RobotomyRequestForm) : AForm(RobotomyRequestForm), _target(RobotomyRequestForm._target) {}
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &RobotomyRequestForm) : AForm(RobotomyRequestForm) {}
 
-RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm const &RobotomyRequestForm) {
-    this->_target = RobotomyRequestForm._target;
+RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm const &) {
     return (*this);
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+RobotomyRequestForm::~RobotomyRequestForm() = default;
 
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
     if (!this->getSigned())
@@ -35,7 +34,7 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
     std::cout << "*drilling noises*" << std::endl;
 
     if (rand() % 2)
-        std::cout << this->_target << " has been robotomized successfully" << std::endl;
+        std::cout << this->getTarget() << " has been robotomized successfully" << std::endl;
     else
-        std::cout << "Robotomy on " << this->_target << " failed" << std::endl;
+        std::cout << "Robotomy on " << this->getTarget() << " failed" << std::endl;
 }

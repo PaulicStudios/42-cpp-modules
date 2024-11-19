@@ -13,9 +13,9 @@
 
 #include "AForm.hpp"
 
-AForm::AForm() : _name("default"), _signed(false), _gradeToSign(1), _gradeToExecute(1) {}
+AForm::AForm() : _name("default"), _signed(false), _gradeToSign(1), _gradeToExecute(1), _target("default") {}
 
-AForm::AForm(std::string name, uint gradeToSign, uint gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
+AForm::AForm(std::string name, uint gradeToSign, uint gradeToExecute, std::string target) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute), _target(target) {
     if (gradeToSign < 1 || gradeToExecute < 1) {
         throw GradeTooHighException();
     } else if (gradeToSign > 150 || gradeToExecute > 150) {
@@ -23,7 +23,7 @@ AForm::AForm(std::string name, uint gradeToSign, uint gradeToExecute) : _name(na
     }
 }
 
-AForm::AForm(AForm const &AForm) : _name(AForm._name), _signed(AForm._signed), _gradeToSign(AForm._gradeToSign), _gradeToExecute(AForm._gradeToExecute) {}
+AForm::AForm(AForm const &AForm) : _name(AForm._name), _signed(AForm._signed), _gradeToSign(AForm._gradeToSign), _gradeToExecute(AForm._gradeToExecute), _target(AForm._target) {}
 
 AForm::~AForm() = default;
 
@@ -46,6 +46,10 @@ uint AForm::getGradeToSign() const {
 
 uint AForm::getGradeToExecute() const {
     return (this->_gradeToExecute);
+}
+
+std::string AForm::getTarget() const {
+    return (this->_target);
 }
 
 void AForm::beSigned(Bureaucrat const &bureaucrat) {

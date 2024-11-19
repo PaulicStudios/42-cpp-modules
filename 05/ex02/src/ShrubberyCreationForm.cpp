@@ -6,18 +6,17 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:16:54 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 19:25:08 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:42:32 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("ShrubberyCreationForm", 145, 137), _target(target) {}
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("ShrubberyCreationForm", 145, 137, target) {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &ShrubberyCreationForm) : AForm(ShrubberyCreationForm), _target(ShrubberyCreationForm._target) {}
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &ShrubberyCreationForm) : AForm(ShrubberyCreationForm) {}
 
-ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm const &ShrubberyCreationForm) {
-    this->_target = ShrubberyCreationForm._target;
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm const &) {
     return (*this);
 }
 
@@ -32,7 +31,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
         throw AForm::GradeTooLowException();
     }
 
-    std::ofstream file(this->_target + "_shrubbery");
+    std::ofstream file(this->getTarget() + "_shrubbery");
     if (!file.is_open()) {
         throw std::runtime_error("Failed to open file");
     }

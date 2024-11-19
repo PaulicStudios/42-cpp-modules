@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:30:09 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 19:36:44 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:40:29 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 
 class RobotomyRequestForm : public AForm {
     private:
-        std::string _target;
-
         RobotomyRequestForm();
+
     public:
         RobotomyRequestForm(std::string target);
         RobotomyRequestForm(RobotomyRequestForm const &RobotomyRequestForm);

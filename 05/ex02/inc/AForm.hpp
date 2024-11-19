@@ -25,10 +25,11 @@ private:
     bool _signed;
     const uint _gradeToSign;
     const uint _gradeToExecute;
+    const std::string _target;
     AForm();
 
 public:
-    AForm(std::string name, uint gradeToSign, uint gradeToExecute);
+    AForm(std::string name, uint gradeToSign, uint gradeToExecute, std::string target);
     AForm(AForm const &AForm);
     AForm &operator=(AForm const &AForm);
     ~AForm();
@@ -37,6 +38,7 @@ public:
     bool getSigned() const;
     uint getGradeToSign() const;
     uint getGradeToExecute() const;
+    std::string getTarget() const;
 
     void beSigned(Bureaucrat const &bureaucrat);
     virtual void execute(Bureaucrat const &executor) const = 0;
