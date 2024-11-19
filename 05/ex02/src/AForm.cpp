@@ -15,15 +15,17 @@
 
 AForm::AForm() : _name("default"), _signed(false), _gradeToSign(1) {}
 
-AForm::AForm(std::string name, uint gradeToSign) : _name(name), _signed(false), _gradeToSign(gradeToSign) {
-    if (gradeToSign < 1) {
+AForm::AForm(std::string name, uint gradeToSign, uint gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
+    if (gradeToSign < 1 || gradeToExecute < 1) {
         throw GradeTooHighException();
-    } else if (gradeToSign > 150) {
+    } else if (gradeToSign > 150 || gradeToExecute > 150) {
         throw GradeTooLowException();
     }
 }
 
-AForm::AForm(AForm const &AForm) : _name(AForm._name), _signed(AForm._signed), _gradeToSign(AForm._gradeToSign) {}
+AForm::AForm(AForm const &AForm) : _name(AForm._name), _signed(AForm._signed), _gradeToSign(AForm._gradeToSign), _gradeToExecute(AForm._gradeToExecute) {}
+
+AForm::~AForm() = default;
 
 AForm &AForm::operator=(AForm const &AForm) {
     this->_signed = AForm._signed;
@@ -40,6 +42,10 @@ bool AForm::getSigned() const {
 
 uint AForm::getGradeToSign() const {
     return (this->_gradeToSign);
+}
+
+uint AForm::getGradeToExecute() const {
+    return (this->_gradeToExecute);
 }
 
 void AForm::beSigned(Bureaucrat const &bureaucrat) {
