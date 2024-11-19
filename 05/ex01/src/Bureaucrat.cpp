@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:22:14 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/09/05 16:45:32 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:41:59 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,15 @@ void Bureaucrat::decrementGrade() {
 		throw GradeTooLowException();
 	}
 	this->_grade++;
+}
+
+void Bureaucrat::signForm(Form &form) const {
+	try {
+		form.beSigned(this);
+		std::cout << this->_name << " signed " << form.getName() << std::endl;
+	} catch (std::exception &e) {
+		std::cout << this->_name << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
+	}
 }
 
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &bureaucrat) {

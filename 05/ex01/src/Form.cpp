@@ -6,24 +6,24 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 15:26:01 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 15:39:42 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:44:41 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "Form.hpp"
 
-Form::Form() : _name("default"), _signed(false), _gradeToSign(1), _gradeToExecute(1) {}
+Form::Form() : _name("default"), _signed(false), _gradeToSign(1) {}
 
-Form::Form(std::string name, uint gradeToSign, uint gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
-    if (gradeToSign < 1 || gradeToExecute < 1) {
+Form::Form(std::string name, uint gradeToSign) : _name(name), _signed(false), _gradeToSign(gradeToSign) {
+    if (gradeToSign < 1) {
         throw GradeTooHighException();
-    } else if (gradeToSign > 150 || gradeToExecute > 150) {
+    } else if (gradeToSign > 150) {
         throw GradeTooLowException();
     }
 }
 
-Form::Form(Form const &Form) : _name(Form._name), _signed(Form._signed), _gradeToSign(Form._gradeToSign), _gradeToExecute(Form._gradeToExecute) {}
+Form::Form(Form const &Form) : _name(Form._name), _signed(Form._signed), _gradeToSign(Form._gradeToSign) {}
 
 Form &Form::operator=(Form const &Form) {
     this->_signed = Form._signed;
@@ -42,10 +42,6 @@ bool Form::getSigned() const {
 
 uint Form::getGradeToSign() const {
     return (this->_gradeToSign);
-}
-
-uint Form::getGradeToExecute() const {
-    return (this->_gradeToExecute);
 }
 
 void Form::beSigned(Bureaucrat const &bureaucrat) {

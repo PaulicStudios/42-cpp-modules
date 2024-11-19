@@ -20,6 +20,8 @@ public:
 	void incrementGrade();
 	void decrementGrade();
 
+	void signForm(Form &form) const;
+
 	class GradeTooHighException final : public std::exception {
 	public:
 		[[nodiscard]] const char *what() const noexcept override {
