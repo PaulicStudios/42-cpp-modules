@@ -13,7 +13,7 @@
 
 #include "AForm.hpp"
 
-AForm::AForm() : _name("default"), _signed(false), _gradeToSign(1) {}
+AForm::AForm() : _name("default"), _signed(false), _gradeToSign(1), _gradeToExecute(1) {}
 
 AForm::AForm(std::string name, uint gradeToSign, uint gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
     if (gradeToSign < 1 || gradeToExecute < 1) {
@@ -61,6 +61,6 @@ void AForm::beSigned(Bureaucrat const &bureaucrat) {
 }
 
 std::ostream &operator<<(std::ostream &out, const AForm &AForm) {
-    out << "Form " << AForm.getName() << " is " << (AForm.getSigned() ? "signed" : "not signed") << " and requires grade " << AForm.getGradeToSign() << " to sign";
+    out << "Form " << AForm.getName() << " is " << (AForm.getSigned() ? "signed" : "not signed") << " and requires grade " << AForm.getGradeToSign() << " to sign and grade " << AForm.getGradeToExecute() << " to execute";
     return (out);
 }

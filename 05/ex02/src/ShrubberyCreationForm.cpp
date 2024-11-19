@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:16:54 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 19:06:58 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:25:08 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
     if (!file.is_open()) {
         throw std::runtime_error("Failed to open file");
     }
-    file << """* Season's Greetings * 11/96
+
+    std::string tree = R"(
+* Season's Greetings * 11/96
       __,_,_,___)          _______
     (--| | |             (--/    ),_)        ,_)
        | | |  _ ,_,_        |     |_ ,_ ' , _|_,_,_, _  ,
@@ -64,6 +66,8 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
   """"|'.'.'.|~~|.*.*.*|     ____|_   =('.')=//   ,------------.
   jgs |'.'.'.|   ^^^^^^|____|>>>>>>|  ( ~~~ )/   (((((((())))))))
       ~~~~~~~~         '""""`------'  `w---w`     `------------'
-""" << std::endl;
+    )";
+
+    file << tree << std::endl;
     file.close();
 }

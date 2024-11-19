@@ -1,4 +1,4 @@
-NAME	:=	moreAForms
+NAME	:=	moreForms
 
 CC		:=	c++
 INCDIR	:=	inc
@@ -7,6 +7,7 @@ CFLAGS	:=  -Wextra -Wall -Werror -std=c++17
 VPATH	:=	src
 SOURCES	:=	Bureaucrat.cpp \
 			AForm.cpp \
+			ShrubberyCreationForm.cpp \
 			main.cpp
 
 OBJDIR	:=	obj
