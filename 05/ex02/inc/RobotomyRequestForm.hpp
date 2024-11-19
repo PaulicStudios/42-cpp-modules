@@ -6,13 +6,14 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:30:09 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 19:40:29 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 21:28:00 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "AForm.hpp"
+#include <random>
 
 class RobotomyRequestForm : public AForm {
     private:

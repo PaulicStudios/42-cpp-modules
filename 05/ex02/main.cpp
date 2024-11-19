@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:49:21 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 19:55:47 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 21:26:54 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,15 @@ int main()
 		std::cout << "signing form" << std::endl;
 		bureaucrat3.signForm(robotomyRequestForm);
 		std::cout << "executing form" << std::endl;
+		bureaucrat3.executeForm(robotomyRequestForm);
+		bureaucrat3.executeForm(robotomyRequestForm);
+		bureaucrat3.executeForm(robotomyRequestForm);
+		bureaucrat3.executeForm(robotomyRequestForm);
+		bureaucrat3.executeForm(robotomyRequestForm);
+		bureaucrat3.executeForm(robotomyRequestForm);
+		bureaucrat3.executeForm(robotomyRequestForm);
+		bureaucrat3.executeForm(robotomyRequestForm);
+
 		bureaucrat3.executeForm(robotomyRequestForm);
 		std::cout << robotomyRequestForm << std::endl;
 	}
