@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:16:54 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 19:42:32 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:50:48 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,7 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm co
 ShrubberyCreationForm::~ShrubberyCreationForm() = default;
 
 void ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
-    if (this->getSigned() == false) {
-        throw AForm::FormNotSignedException();
-    }
-
-    if (executor.getGrade() > this->getGradeToExecute()) {
-        throw AForm::GradeTooLowException();
-    }
+    checkExecution(executor);
 
     std::ofstream file(this->getTarget() + "_shrubbery");
     if (!file.is_open()) {

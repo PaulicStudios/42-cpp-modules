@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 19:30:53 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/19 19:43:34 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/19 19:50:42 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm const &)
 RobotomyRequestForm::~RobotomyRequestForm() = default;
 
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
-    if (!this->getSigned())
-        throw AForm::FormNotSignedException();
-    if (executor.getGrade() > this->getGradeToExecute())
-        throw AForm::GradeTooLowException();
+    checkExecution(executor);
 
     std::cout << "DRILLING NOISES" << std::endl;
     std::cout << "*drilling noises*" << std::endl;

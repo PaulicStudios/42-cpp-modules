@@ -28,6 +28,9 @@ private:
     const std::string _target;
     AForm();
 
+protected:
+    void checkExecution(Bureaucrat const &executor) const;
+
 public:
     AForm(std::string name, uint gradeToSign, uint gradeToExecute, std::string target);
     AForm(AForm const &AForm);

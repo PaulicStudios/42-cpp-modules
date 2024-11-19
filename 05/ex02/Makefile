@@ -9,6 +9,7 @@ SOURCES	:=	Bureaucrat.cpp \
 			AForm.cpp \
 			ShrubberyCreationForm.cpp \
 			RobotomyRequestForm.cpp \
+			PresidentialPardonForm.cpp \
 			main.cpp
 
 OBJDIR	:=	obj
