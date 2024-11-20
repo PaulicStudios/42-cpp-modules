@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 23:27:27 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/20 19:17:14 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:27:28 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void ScalarConverter::convert(const std::string &literal)
 
 ScalarConverter::Type ScalarConverter::getType(const std::string &literal)
 {
-    if (literal.length() == 1 && literal[0] >= 32 && literal[0] <= 126)
+    if (literal.length() == 1 && literal[0] >= 32 && literal[0] <= 126 && !std::isdigit(literal[0]))
         return (CHAR);
     if (literal.find('.') == std::string::npos)
         return (INT);
@@ -64,7 +64,7 @@ void ScalarConverter::printFromChar(const std::string &literal)
 
     printChar(c);
     std::cout << "int: " << static_cast<int>(c) << std::endl;
-    std::cout << "float: " << static_cast<float>(c) << std::endl;
+    std::cout << "float: " << static_cast<float>(c) << "f" << std::endl;
     std::cout << "double: " << static_cast<double>(c) << std::endl;
 }
 
@@ -76,22 +76,47 @@ void ScalarConverter::printFromInt(const std::string &literal)
         i = std::stoi(literal);
     } catch (std::exception &e) {
         std::cout << "int: impossible" << std::endl;
+        return;
     }
 
     printChar(static_cast<char>(i));
     std::cout << "int: " << i << std::endl;
-    std::cout << "float: " << static_cast<float>(i) << std::endl;
+    std::cout << "float: " << static_cast<float>(i) << "f" << std::endl;
     std::cout << "double: " << static_cast<double>(i) << std::endl;
 }
 
-void ScalarConverter::printFromFloat(const std::string &)
+void ScalarConverter::printFromFloat(const std::string &literal)
 {
+    float f;
 
+    try {
+        f = std::stof(literal);
+    } catch (std::exception &e) {
+        std::cout << "float: impossible" << std::endl;
+        return;
+    }
+
+    printChar(static_cast<char>(f));
+    std::cout << "int: " << static_cast<int>(f) << std::endl;
+    std::cout << "float: " << f << "f" << std::endl;
+    std::cout << "double: " << static_cast<double>(f) << std::endl;
 }
 
-void ScalarConverter::printFromDouble(const std::string &)
+void ScalarConverter::printFromDouble(const std::string &literal)
 {
+    double d;
 
+    try {
+        d = std::stod(literal);
+    } catch (std::exception &e) {
+        std::cout << "double: impossible" << std::endl;
+        return;
+    }
+
+    printChar(static_cast<char>(d));
+    std::cout << "int: " << static_cast<int>(d) << std::endl;
+    std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
+    std::cout << "double: " << d << std::endl;
 }
 
 void ScalarConverter::printChar(const char &c)
