@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 23:26:23 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/20 16:06:58 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:27:13 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,20 @@
 #include <iostream>
 
 class ScalarConverter {
+    enum Type {
+        CHAR,
+        INT,
+        FLOAT,
+        DOUBLE
+    };
+
     private:
-        static void print_char(const std::string &literal);
+        static Type getType(const std::string &literal);
+        static void printFromChar(const std::string &literal);
+        static void printFromInt(const std::string &literal);
+        static void printFromFloat(const std::string &literal);
+        static void printFromDouble(const std::string &literal);
+
     public:
         ScalarConverter();
         ScalarConverter(ScalarConverter const &ScalarConverter);
