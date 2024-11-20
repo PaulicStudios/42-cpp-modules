@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 23:26:23 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/20 19:16:49 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:38:29 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <string>
 #include <iostream>
+#include <limits>
 
 class ScalarConverter {
     enum Type {

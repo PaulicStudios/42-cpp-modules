@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 23:27:27 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/20 19:27:28 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:45:54 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,28 @@ void ScalarConverter::convert(const std::string &literal)
 
     switch (type)
     {
-        case CHAR:
-            printFromChar(literal);
-            break;
-        case INT:
-            printFromInt(literal);
-            break;
-        case FLOAT:
-            printFromFloat(literal);
-            break;
-        case DOUBLE:
-            printFromDouble(literal);
-            break;
+    case CHAR:
+        printFromChar(literal);
+        break;
+    case INT:
+        printFromInt(literal);
+        break;
+    case FLOAT:
+        printFromFloat(literal);
+        break;
+    case DOUBLE:
+        printFromDouble(literal);
+        break;
     }
 }
 
 ScalarConverter::Type ScalarConverter::getType(const std::string &literal)
 {
+    if (literal == "+inff" || literal == "-inff" || literal == "nanf")
+        return (FLOAT);
+    if (literal == "+inf" || literal == "-inf" || literal == "nan")
+        return (DOUBLE);
+
     if (literal.length() == 1 && literal[0] >= 32 && literal[0] <= 126 && !std::isdigit(literal[0]))
         return (CHAR);
     if (literal.find('.') == std::string::npos)
@@ -72,9 +77,12 @@ void ScalarConverter::printFromInt(const std::string &literal)
 {
     int i;
 
-    try {
+    try
+    {
         i = std::stoi(literal);
-    } catch (std::exception &e) {
+    }
+    catch (std::exception &e)
+    {
         std::cout << "int: impossible" << std::endl;
         return;
     }
@@ -89,11 +97,23 @@ void ScalarConverter::printFromFloat(const std::string &literal)
 {
     float f;
 
-    try {
-        f = std::stof(literal);
-    } catch (std::exception &e) {
-        std::cout << "float: impossible" << std::endl;
-        return;
+    if (literal == "+inff")
+        f = std::numeric_limits<float>::infinity();
+    else if (literal == "-inff")
+        f = -std::numeric_limits<float>::infinity();
+    else if (literal == "nanf")
+        f = std::numeric_limits<float>::quiet_NaN();
+    else
+    {
+        try
+        {
+            f = std::stof(literal);
+        }
+        catch (std::exception &e)
+        {
+            std::cout << "float: impossible" << std::endl;
+            return;
+        }
     }
 
     printChar(static_cast<char>(f));
@@ -106,11 +126,23 @@ void ScalarConverter::printFromDouble(const std::string &literal)
 {
     double d;
 
-    try {
-        d = std::stod(literal);
-    } catch (std::exception &e) {
-        std::cout << "double: impossible" << std::endl;
-        return;
+    if (literal == "+inf")
+        d = std::numeric_limits<double>::infinity();
+    else if (literal == "-inf")
+        d = -std::numeric_limits<double>::infinity();
+    else if (literal == "nan")
+        d = std::numeric_limits<double>::quiet_NaN();
+    else
+    {
+        try
+        {
+            d = std::stod(literal);
+        }
+        catch (std::exception &e)
+        {
+            std::cout << "double: impossible" << std::endl;
+            return;
+        }
     }
 
     printChar(static_cast<char>(d));
