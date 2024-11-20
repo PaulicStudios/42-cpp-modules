@@ -1,4 +1,5 @@
 .vscode
+.DS_Store
 **/obj
 megaphone
 phonebook
@@ -22,4 +23,4 @@ bureaucrat
 form
 moreforms
 intern
-staticCast
+convert
