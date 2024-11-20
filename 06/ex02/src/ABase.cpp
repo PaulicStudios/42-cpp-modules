@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 00:31:21 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/21 00:47:12 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/21 00:55:17 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,22 @@ void ABase::identify(ABase *p) {
 }
 
 void ABase::identify(ABase &p) {
-    if (dynamic_cast<BaseA *>(&p))
+    try {
+        (void) dynamic_cast<BaseA &>(p);
         std::cout << "BaseA" << std::endl;
-    else if (dynamic_cast<BaseB *>(&p))
-        std::cout << "BaseB" << std::endl;
-    else if (dynamic_cast<BaseC *>(&p))
-        std::cout << "BaseC" << std::endl;
-    else
-        std::cout << "Unknown" << std::endl;
+    } catch (std::exception &e) {
+        try {
+            dynamic_cast<BaseB &>(p);
+            std::cout << "BaseB" << std::endl;
+        } catch (std::exception &e) {
+            try {
+                dynamic_cast<BaseC &>(p);
+                std::cout << "BaseC" << std::endl;
+            } catch (std::exception &e) {
+                std::cout << "Unknown" << std::endl;
+            }
+        }
+    }
 }
 
 ABase *ABase::generate() {
