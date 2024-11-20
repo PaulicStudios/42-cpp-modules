@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 00:31:21 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/21 00:43:07 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/21 00:47:12 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,25 @@
 ABase::~ABase() = default;
 
 void ABase::identify(ABase *p) {
-    std::cout << "ABase *" << p << std::endl;
+    if (dynamic_cast<BaseA *>(p))
+        std::cout << "BaseA" << std::endl;
+    else if (dynamic_cast<BaseB *>(p))
+        std::cout << "BaseB" << std::endl;
+    else if (dynamic_cast<BaseC *>(p))
+        std::cout << "BaseC" << std::endl;
+    else
+        std::cout << "Unknown" << std::endl;
 }
 
 void ABase::identify(ABase &p) {
-    std::cout << "ABase &" << &p << std::endl;
+    if (dynamic_cast<BaseA *>(&p))
+        std::cout << "BaseA" << std::endl;
+    else if (dynamic_cast<BaseB *>(&p))
+        std::cout << "BaseB" << std::endl;
+    else if (dynamic_cast<BaseC *>(&p))
+        std::cout << "BaseC" << std::endl;
+    else
+        std::cout << "Unknown" << std::endl;
 }
 
 ABase *ABase::generate() {
@@ -35,10 +49,13 @@ ABase *ABase::generate() {
 
     switch (random_number) {
         case 0:
+            std::cout << "Generating BaseA" << std::endl;
             return new BaseA();
         case 1:
+            std::cout << "Generating BaseB" << std::endl;
             return new BaseB();
         case 2:
+            std::cout << "Generating BaseC" << std::endl;
             return new BaseC();
     }
     return (nullptr);
