@@ -87,7 +87,10 @@ void ScalarConverter::printFromInt(const std::string &literal)
         return;
     }
 
-    printChar(static_cast<char>(i));
+    if (i > std::numeric_limits<char>::max() || i < std::numeric_limits<char>::min())
+        std::cout << "char: impossible" << std::endl;
+    else
+        printChar(static_cast<char>(i));
     std::cout << "int: " << i << std::endl;
     std::cout << "float: " << static_cast<float>(i) << "f" << std::endl;
     std::cout << "double: " << static_cast<double>(i) << std::endl;
@@ -116,7 +119,10 @@ void ScalarConverter::printFromFloat(const std::string &literal)
         }
     }
 
-    printChar(static_cast<char>(f));
+    if (f > std::numeric_limits<char>::max() || f < std::numeric_limits<char>::min())
+        std::cout << "char: impossible" << std::endl;
+    else
+        printChar(static_cast<char>(f));
     if (f > std::numeric_limits<int>::max() || f < std::numeric_limits<int>::min())
         std::cout << "int: impossible" << std::endl;
     else
@@ -148,7 +154,10 @@ void ScalarConverter::printFromDouble(const std::string &literal)
         }
     }
 
-    printChar(static_cast<char>(d));
+    if (d > std::numeric_limits<char>::max() || d < std::numeric_limits<char>::min())
+        std::cout << "char: impossible" << std::endl;
+    else
+        printChar(static_cast<char>(d));
     if (d > std::numeric_limits<int>::max() || d < std::numeric_limits<int>::min())
         std::cout << "int: impossible" << std::endl;
     else
