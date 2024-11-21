@@ -6,14 +6,14 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 14:40:28 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/21 14:59:39 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:08:58 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <cstddef>
-
+#include <stdexcept>
 template <typename T>
 class Array {
     private:
@@ -39,6 +39,12 @@ class Array {
                 _array[i] = other._array[i];
             }
             return *this;
+        }
+
+        T &operator[](unsigned int index) {
+            if (index >= _size)
+                throw std::out_of_range("Index out of bounds");
+            return _array[index];
         }
 
         ~Array() {
