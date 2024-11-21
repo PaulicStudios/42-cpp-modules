@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 14:40:28 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/21 15:08:58 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:15:05 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,9 @@ class Array {
 
         ~Array() {
             delete[] _array;
+        }
+
+        unsigned int size() const {
+            return _size;
         }
 };

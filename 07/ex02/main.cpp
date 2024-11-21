@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 13:50:17 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/21 15:12:30 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:15:31 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ int main(void)
     stringArray3 = stringArray;
     std::cout << stringArray3[0] << std::endl;
     std::cout << stringArray3[1] << std::endl;
+
+    std::cout << "Size of intArray: " << intArray.size() << std::endl;
+    std::cout << "Size of stringArray: " << stringArray.size() << std::endl;
+    std::cout << "Size of stringArray2: " << stringArray2.size() << std::endl;
+    std::cout << "Size of stringArray3: " << stringArray3.size() << std::endl;
 
     // system("leaks array");
     return 0;
