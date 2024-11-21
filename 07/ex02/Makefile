@@ -5,8 +5,7 @@ INCDIR	:=	src
 CFLAGS	:=  -Wextra -Wall -Werror -std=c++17
 
 VPATH	:=	src
-SOURCES	:=	Array.cpp \
-			main.cpp
+SOURCES	:=	main.cpp
 
 OBJDIR	:=	obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.o))
