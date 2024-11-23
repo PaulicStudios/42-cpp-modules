@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 13:43:48 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/23 14:17:01 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/23 14:36:45 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class Span {
         unsigned int maxSize() const;
 
         void addNumber(int number);
+        void addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end);
         int shortestSpan();
         int longestSpan();
 
