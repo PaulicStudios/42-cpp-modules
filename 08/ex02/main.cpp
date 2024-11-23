@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 13:50:17 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/23 15:16:51 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/23 15:21:46 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 int main(void)
 {
+    {
     MutantStack<int> mstack;
     mstack.push(5);
     mstack.push(17);
@@ -42,6 +43,16 @@ int main(void)
         ++it;
     }
     std::stack<int> s(mstack);
+    }
+    std::cout << "----------------------------------------" << std::endl;
+    {
+        MutantStack<std::string> mstack;
+        mstack.push("42");
+        mstack.push("Heilbronn");
+
+        MutantStack<std::string>::iterator it = std::find(mstack.begin(), mstack.end(), "42");
+        std::cout << *it << std::endl;
+    }
 
     return (0);
 }
