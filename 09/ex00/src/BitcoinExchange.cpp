@@ -6,27 +6,34 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:48:28 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/24 13:09:43 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:27:42 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange() : _fileName(""), _exchangeRates(_loadExchangeRates()) {}
-
-BitcoinExchange::BitcoinExchange(std::string fileName) : _fileName(fileName), _exchangeRates(_loadExchangeRates()) {}
+BitcoinExchange::BitcoinExchange() : _exchangeRates(_loadExchangeRates()) {}
 
 BitcoinExchange::~BitcoinExchange() {}
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &src) : _fileName(src._fileName), _exchangeRates(src._exchangeRates) {}
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &src) : _exchangeRates(src._exchangeRates) {}
 
-BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &src) {
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &) {
 	return (*this);
 }
 
-std::map<std::time_t, double> BitcoinExchange::_loadExchangeRates() {
+std::chrono::system_clock::time_point BitcoinExchange::_parseDate(const std::string &date) {
+	std::tm tm = {};
+	std::stringstream ss(date);
+	ss >> std::get_time(&tm, "%Y-%m-%d");
+	if (ss.fail()) {
+		return (std::chrono::system_clock::time_point::min());
+	}
+
+	return (std::chrono::system_clock::from_time_t(std::mktime(&tm)));
+}
+
+std::map<std::chrono::system_clock::time_point, double> BitcoinExchange::_loadExchangeRates() {
 	std::ifstream dataFile("data.csv");
 	if (!dataFile.is_open()) {
 		throw std::runtime_error("Could not open data file");
@@ -38,12 +45,15 @@ std::map<std::time_t, double> BitcoinExchange::_loadExchangeRates() {
 		if (date == "date")
 			continue;
 		std::string rate = line.substr(line.find(',') + 1);
-		std::time_t time = std::mktime(std::localtime(&date));
+		std::chrono::system_clock::time_point time = _parseDate(date);
 
-		if (time == -1 || date.empty() || rate.empty()) {
+		if (time == std::chrono::system_clock::time_point::min() || date.empty() || rate.empty()) {
 			std::cerr << "Error: Invalid date or rate on line: " << line << std::endl;
 			continue;
 		}
 		_exchangeRates.insert(std::make_pair(time, std::stod(rate)));
+		std::cout << "Inserted: " << date << " -> " << rate << std::endl;
 	}
+
+	return (_exchangeRates);
 }

@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:41 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/24 13:10:07 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:25:12 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 
 #include <map>
 #include <string>
-#include <ctime>
+#include <chrono>
 #include <fstream>
+#include <sstream>
 
 class BitcoinExchange {
 	private:
-		const std::string _fileName;
-		const std::map<std::time_t, double> _exchangeRates;
+		const std::map<std::chrono::system_clock::time_point, double> _exchangeRates;
 
-		BitcoinExchange();
-
-		std::map<std::time_t, double> _loadExchangeRates();
+		std::map<std::chrono::system_clock::time_point, double> _loadExchangeRates();
+		std::chrono::system_clock::time_point _parseDate(const std::string &date);
 	public:
-		BitcoinExchange(std::string fileName);
+		BitcoinExchange();
 		~BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange &src);
 		BitcoinExchange &operator=(const BitcoinExchange &src);
