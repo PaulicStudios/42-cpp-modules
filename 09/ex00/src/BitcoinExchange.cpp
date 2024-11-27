@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:48:28 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/27 17:26:17 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:36:26 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void BitcoinExchange::lookUpValuesFromFile(const std::string &filename) {
 	std::string line;
 	while (std::getline(file, line)) {
 		std::string dateStr = line.substr(0, line.find('|'));
-		if (dateStr == "date")
+		if (dateStr == "date ")
 			continue;
 		std::string valueStr = line.substr(line.find('|') + 1);
 
