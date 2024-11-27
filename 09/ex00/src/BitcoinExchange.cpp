@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:48:28 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/25 17:27:42 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/27 13:24:59 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ std::chrono::system_clock::time_point BitcoinExchange::_parseDate(const std::str
 std::map<std::chrono::system_clock::time_point, double> BitcoinExchange::_loadExchangeRates() {
 	std::ifstream dataFile("data.csv");
 	if (!dataFile.is_open()) {
-		throw std::runtime_error("Could not open data file");
+		throw std::runtime_error("Could not open data.csv");
 	}
 
+	std::map<std::chrono::system_clock::time_point, double> exchangeRates;
 	std::string line;
 	while (std::getline(dataFile, line)) {
 		std::string date = line.substr(0, line.find(','));
@@ -51,9 +52,8 @@ std::map<std::chrono::system_clock::time_point, double> BitcoinExchange::_loadEx
 			std::cerr << "Error: Invalid date or rate on line: " << line << std::endl;
 			continue;
 		}
-		_exchangeRates.insert(std::make_pair(time, std::stod(rate)));
-		std::cout << "Inserted: " << date << " -> " << rate << std::endl;
+		exchangeRates.insert(std::make_pair(time, std::stod(rate)));
 	}
 
-	return (_exchangeRates);
+	return (exchangeRates);
 }

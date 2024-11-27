@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:41 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/25 17:25:12 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/27 13:18:16 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <chrono>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 class BitcoinExchange {
 	private:
