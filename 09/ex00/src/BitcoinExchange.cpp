@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:48:28 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/27 13:24:59 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:02:39 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,54 @@ std::map<std::chrono::system_clock::time_point, double> BitcoinExchange::_loadEx
 			std::cerr << "Error: Invalid date or rate on line: " << line << std::endl;
 			continue;
 		}
-		exchangeRates.insert(std::make_pair(time, std::stod(rate)));
+
+		try {
+			double value = std::stod(rate);
+		} catch (const std::exception &e) {
+			std::cerr << "Error: Invalid rate on line: " << line << std::endl;
+			continue;
+		}
+		if (value < 0) {
+			std::cerr << "Error: Negative value on line: " << line << std::endl;
+			continue;
+		}
+
+		exchangeRates.insert(std::make_pair(time, value));
 	}
 
 	return (exchangeRates);
+}
+
+double BitcoinExchange::_calcRate(const std::string &date, double value) {
+
+}
+
+void BitcoinExchange::lookUpValuesFromFile(const std::string &filename) {
+	std::ifstream file(filename);
+	if (!file.is_open()) {
+		throw std::runtime_error("Could not open file");
+	}
+
+	std::string line;
+	while (std::getline(file, line)) {
+		std::string date = line.substr(0, line.find('|'));
+		std::string value = line.substr(line.find('|') + 1);
+
+		std::chrono::system_clock::time_point time = _parseDate(date);
+		if (time == std::chrono::system_clock::time_point::min() || date.empty() || value.empty()) {
+			std::cerr << "Error: Invalid date or rate on line: " << line << std::endl;
+			continue;
+		}
+
+		try {
+			double value = std::stod(rate);
+		} catch (const std::exception &e) {
+			std::cerr << "Error: Invalid rate on line: " << line << std::endl;
+			continue;
+		}
+		if (value < 0) {
+			std::cerr << "Error: Negative value on line: " << line << std::endl;
+			continue;
+		}
+	}
 }
