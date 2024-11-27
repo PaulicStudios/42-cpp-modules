@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:48:28 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/27 14:02:39 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:26:17 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,20 @@ std::map<std::chrono::system_clock::time_point, double> BitcoinExchange::_loadEx
 	std::map<std::chrono::system_clock::time_point, double> exchangeRates;
 	std::string line;
 	while (std::getline(dataFile, line)) {
-		std::string date = line.substr(0, line.find(','));
-		if (date == "date")
+		std::string dateStr = line.substr(0, line.find(','));
+		if (dateStr == "date")
 			continue;
-		std::string rate = line.substr(line.find(',') + 1);
-		std::chrono::system_clock::time_point time = _parseDate(date);
+		std::string rateStr = line.substr(line.find(',') + 1);
+		std::chrono::system_clock::time_point time = _parseDate(dateStr);
 
-		if (time == std::chrono::system_clock::time_point::min() || date.empty() || rate.empty()) {
+		if (time == std::chrono::system_clock::time_point::min() || dateStr.empty() || rateStr.empty()) {
 			std::cerr << "Error: Invalid date or rate on line: " << line << std::endl;
 			continue;
 		}
 
+		double value;
 		try {
-			double value = std::stod(rate);
+			value = std::stod(rateStr);
 		} catch (const std::exception &e) {
 			std::cerr << "Error: Invalid rate on line: " << line << std::endl;
 			continue;
@@ -70,8 +71,12 @@ std::map<std::chrono::system_clock::time_point, double> BitcoinExchange::_loadEx
 	return (exchangeRates);
 }
 
-double BitcoinExchange::_calcRate(const std::string &date, double value) {
-
+double BitcoinExchange::_calcRate(const std::chrono::system_clock::time_point &date, double value) {
+	auto it = _exchangeRates.lower_bound(date);
+	if (it == _exchangeRates.end() || it->first != date) {
+		--it;
+	}
+	return (it->second * value);
 }
 
 void BitcoinExchange::lookUpValuesFromFile(const std::string &filename) {
@@ -82,17 +87,20 @@ void BitcoinExchange::lookUpValuesFromFile(const std::string &filename) {
 
 	std::string line;
 	while (std::getline(file, line)) {
-		std::string date = line.substr(0, line.find('|'));
-		std::string value = line.substr(line.find('|') + 1);
+		std::string dateStr = line.substr(0, line.find('|'));
+		if (dateStr == "date")
+			continue;
+		std::string valueStr = line.substr(line.find('|') + 1);
 
-		std::chrono::system_clock::time_point time = _parseDate(date);
-		if (time == std::chrono::system_clock::time_point::min() || date.empty() || value.empty()) {
+		std::chrono::system_clock::time_point time = _parseDate(dateStr);
+		if (time == std::chrono::system_clock::time_point::min() || dateStr.empty() || valueStr.empty()) {
 			std::cerr << "Error: Invalid date or rate on line: " << line << std::endl;
 			continue;
 		}
 
+		double value;
 		try {
-			double value = std::stod(rate);
+			value = std::stod(valueStr);
 		} catch (const std::exception &e) {
 			std::cerr << "Error: Invalid rate on line: " << line << std::endl;
 			continue;
@@ -101,5 +109,12 @@ void BitcoinExchange::lookUpValuesFromFile(const std::string &filename) {
 			std::cerr << "Error: Negative value on line: " << line << std::endl;
 			continue;
 		}
+		if (value > std::numeric_limits<int>::max()) {
+			std::cerr << "Error: Value is too large on line: " << line << std::endl;
+			continue;
+		}
+
+		double rate = _calcRate(time, value);
+		std::cout << dateStr << " => " << value << " = " << rate << std::endl;
 	}
 }

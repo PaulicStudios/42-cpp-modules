@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:41 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/11/27 13:34:06 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:13:28 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class BitcoinExchange {
 
 		std::map<std::chrono::system_clock::time_point, double> _loadExchangeRates();
 		std::chrono::system_clock::time_point _parseDate(const std::string &date);
-		double _calcRate(const std::string &date, double value);
+		double _calcRate(const std::chrono::system_clock::time_point &date, double value);
 	public:
 		BitcoinExchange();
 		~BitcoinExchange();
