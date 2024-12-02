@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:08:59 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/12/02 15:32:39 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:31:16 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ class RPN {
 		RPN();
 		int _calcResult(int a, int b, char op);
 		void _handleToken(std::string token);
+
 	public:
 		RPN(std::string input);
 		~RPN();

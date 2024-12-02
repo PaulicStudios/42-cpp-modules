@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:13:39 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/12/02 15:34:01 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:32:11 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void RPN::_handleToken(std::string token) {
 		try {
 			_stack.push(std::stoi(token));
 		} catch (const std::exception &e) {
-			throw std::runtime_error("Invalid token: '" + token + "' is " + e.what());
+			throw std::runtime_error("Invalid token: '" + token + "': " + e.what());
 		}
 	}
 }

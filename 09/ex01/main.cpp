@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:28:13 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/12/02 15:31:34 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:21:40 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(int argc, char **argv) {
 	if (argc != 2) {
-		std::cerr << "Usage: ./RPN 'expression'" << std::endl;
+		std::cerr << "Usage: ./RPN \"expression\"" << std::endl;
 		return (EXIT_FAILURE);
 	}
 
