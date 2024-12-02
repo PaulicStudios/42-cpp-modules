@@ -5,7 +5,8 @@ INCDIR	:=	src
 CFLAGS	:=  -Wextra -Wall -Werror -std=c++17
 
 VPATH	:=	src
-SOURCES	:=	main.cpp
+SOURCES	:=	main.cpp \
+			RPN.cpp
 
 OBJDIR	:=	obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.o))
@@ -13,7 +14,8 @@ OBJECTS	:=	$(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.o))
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)=
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
+
 $(OBJDIR)/%.o: %.cpp $(INC)
 	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -I $(INCDIR) -c $< -o $@

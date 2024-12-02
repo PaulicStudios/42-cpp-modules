@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:13:39 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/12/02 15:24:27 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/12/02 15:34:01 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,13 @@ int RPN::_calcResult(int a, int b, char op) {
 	}
 }
 
-void RPN::handleToken(std::string token) {
+void RPN::_handleToken(std::string token) {
 	if (token.empty()) {
-		break;
+		return;
+	}
+
+	if (token.size() > 1) {
+		throw std::runtime_error("Invalid token: '" + token + "' is too long");
 	}
 
 	if (token == "+" || token == "-" || token == "*" || token == "/") {
@@ -67,19 +71,23 @@ void RPN::handleToken(std::string token) {
 		try {
 			_stack.push(std::stoi(token));
 		} catch (const std::exception &e) {
-			throw std::runtime_error("Invalid token '" + token + "'");
+			throw std::runtime_error("Invalid token: '" + token + "' is " + e.what());
 		}
 	}
 }
 
-int RPN::getResult() const {
+int RPN::getResult() {
 	std::istringstream iss(this->_input);
 
 	while (!iss.fail()) {
 		std::string token;
 		iss >> token;
-		handleToken(token);
+		_handleToken(token);
 	}
 
-	return (0);
+	if (_stack.size() != 1) {
+		throw std::runtime_error("Invalid input: " + std::to_string(_stack.size()) + " numbers left on the stack");
+	}
+
+	return (_stack.top());
 }

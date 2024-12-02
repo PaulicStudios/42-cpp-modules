@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RPN.hpp                                            :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 15:08:59 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/12/02 15:32:39 by pgrossma         ###   ########.fr       */
+/*   Created: 2024/12/02 15:28:13 by pgrossma          #+#    #+#             */
+/*   Updated: 2024/12/02 15:31:34 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "RPN.hpp"
 
-#include <iostream>
-#include <string>
-#include <stack>
-#include <stdexcept>
-#include <sstream>
+int main(int argc, char **argv) {
+	if (argc != 2) {
+		std::cerr << "Usage: ./RPN 'expression'" << std::endl;
+		return (EXIT_FAILURE);
+	}
 
-class RPN {
-	private:
-		std::string _input;
-		std::stack<int> _stack;
+	try {
+		RPN rpn(argv[1]);
+		std::cout << rpn.getResult() << std::endl;
+	} catch (std::exception &e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+		return (EXIT_FAILURE);
+	}
 
-		RPN();
-		int _calcResult(int a, int b, char op);
-		void _handleToken(std::string token);
-	public:
-		RPN(std::string input);
-		~RPN();
-		RPN(const RPN &src);
-		RPN	&operator=(const RPN &src);
-		int getResult();
-};
+	return (EXIT_SUCCESS);
+}
