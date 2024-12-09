@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/12/09 16:58:13 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:01:43 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,45 +36,53 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
     return *this;
 }
 
-std::vector<std::pair<uint, uint>> PmergeMe::_initialPairs() {
-    std::vector<std::pair<uint, uint>> pairs;
-    for (size_t i = 0; i < _nbrs.size(); i++) {
-        pairs.push_back(std::make_pair(0, _nbrs[i]));
+uint PmergeMe::_getPairSize(uint level) {
+    uint result = 1;
+    for (uint i = 0; i < level; ++i) {
+        result *= 2;
     }
-    return pairs;
+    return result;
 }
 
-std::vector<std::pair<uint, uint>> PmergeMe::_splitPairs(std::vector<std::pair<uint, uint>> pairs) {
-    if (pairs.size() == 1)
-        return pairs;
+void PmergeMe::_insertLast(uint level) {
+    if (_nbrs.size() % level == 0) {
+        return;
+    }
+}
 
-    std::vector<std::pair<uint, uint>> newPairs;
-    for (size_t i = 0; i < pairs.size(); i += 2) {
-        uint a = pairs[i].second;
-        uint b = pairs[i + 1].second;
-        if (a > b) {
-            newPairs.push_back(std::make_pair(b, a));
-        } else {
-            newPairs.push_back(std::make_pair(a, b));
-        }
+void PmergeMe::_swapRange(uint a, uint b, uint size) {
+    for (size_t i = 0; i < size; i++) {
+        uint tmp = _nbrs[a - i];
+        _nbrs[a - i] = _nbrs[b - i];
+        _nbrs[b - i] = tmp;
+        std::cout << "swapping ind " << a - i << " and " << b - i << " at size " << size << std::endl;
+    }
+}
+
+void PmergeMe::_splitPairs(uint level) {
+    uint pairSize = _getPairSize(level);
+    if (_nbrs.size() / (pairSize / 2) < 2) {
+        return;
     }
 
-    uint *last = nullptr;
-    if (pairs.size() % 2 == 1)
-        last = &pairs.back().second;
+    std::cout << "before splitPairs at level " << level << " pairSize: " << pairSize << std::endl;
 
-    newPairs = _splitPairs(newPairs);
-
-    return newPairs;
+    for (size_t i = pairSize - 1; i < _nbrs.size(); i += pairSize) {
+        uint a = _nbrs[i - pairSize / 2];
+        uint b = _nbrs[i];
+        std::cout << "comparing " << a << " and " << b << std::endl;
+        if (a > b) {
+            _swapRange(i - pairSize / 2, i, pairSize / 2);
+            std::cout << "swapped " << a << " and " << b << " at level " << level << std::endl;
+        }
+    }
+    std::cout << "after splitPairs at level " << level << std::endl;
+    print();
+    _splitPairs(level + 1);
 }
 
 void PmergeMe::sort() {
-    std::vector<std::pair<uint, uint>> pairs = _initialPairs();
-    pairs = _splitPairs(pairs);
-    for (size_t i = 0; i < pairs.size(); i++) {
-        std::cout << pairs[i].second << " ";
-    }
-    std::cout << std::endl;
+    _splitPairs(1);
 }
 
 void PmergeMe::print() {
