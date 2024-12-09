@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/12/09 20:01:43 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:30:37 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,21 @@ uint PmergeMe::_getPairSize(uint level) {
     return result;
 }
 
-void PmergeMe::_insertLast(uint level) {
-    if (_nbrs.size() % level == 0) {
-        return;
+void PmergeMe::_insertLast(uint pairSize, uint level) {
+    pairSize /= 2;
+
+    size_t lastIndStart = _nbrs.size() - (_nbrs.size() % (pairSize * 2));
+    size_t lastIndEnd = lastIndStart + pairSize;
+    std::cout << "lastIndStart: " << lastIndStart << " lastIndEnd: " << lastIndEnd << std::endl;
+    for (size_t i = pairSize - 1; i < _nbrs.size(); i += pairSize) {
+        std::cout << "comparing " << _nbrs[lastIndStart] << " and " << _nbrs[i] << std::endl;
+        if (_nbrs[lastIndEnd] < _nbrs[i]) {
+            _nbrs.insert(_nbrs.begin() + i, _nbrs.begin() + lastIndStart, _nbrs.begin() + lastIndEnd);
+            _nbrs.erase(_nbrs.end() - (_nbrs.size() % (pairSize * 2)) + 1, _nbrs.end() - (_nbrs.size() % (pairSize * 2)) + pairSize + 1);
+            std::cout << "inserted " << _nbrs[lastIndEnd] << " at index " << i << std::endl;
+            print(level);
+            return;
+        }
     }
 }
 
@@ -77,17 +89,21 @@ void PmergeMe::_splitPairs(uint level) {
         }
     }
     std::cout << "after splitPairs at level " << level << std::endl;
-    print();
+    print(level);
     _splitPairs(level + 1);
+    _insertLast(pairSize, level);
 }
 
 void PmergeMe::sort() {
     _splitPairs(1);
 }
 
-void PmergeMe::print() {
-    for (std::vector<uint>::iterator it = _nbrs.begin(); it != _nbrs.end(); ++it) {
-        std::cout << *it << " ";
+void PmergeMe::print(uint level) {
+    for (uint i = 0; i < _nbrs.size(); i++) {
+        std::cout << _nbrs[i] << " ";
+        if ((i + 1) % (_getPairSize(level) / 2) == 0) {
+            std::cout << "|";
+        }
     }
     std::cout << std::endl;
 }
