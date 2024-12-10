@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/12/09 21:22:31 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/12/10 08:25:31 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ class PmergeMe {
 
         void _splitPairs(uint level);
         void _insertLast(uint pairSize, uint level);
-        uint _getPairSize(uint level);
-        void _swapRange(uint a, uint b, uint size);
+        size_t _getPairSize(uint level);
+        void _swapRange(size_t a, size_t b, size_t size);
 
     public:
         PmergeMe(std::vector<std::string> args);
