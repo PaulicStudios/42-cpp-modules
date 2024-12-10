@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/12/10 08:38:47 by pgrossma         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:11:17 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,53 @@ void PmergeMe::_swapRange(size_t a, size_t b, size_t size) {
     }
 }
 
+void PmergeMe::_sortLevel(uint level, uint pairSize) {
+    pairSize /= 2;
+    if (_nbrs.size() % pairSize > pairSize / 2)
+        return;
+
+    std::cout << "sorting level " << level << " pairSize: " << pairSize << std::endl;
+    
+    std::vector<uint> sorted;
+    sorted.insert(sorted.begin(), _nbrs.begin(), _nbrs.begin() + pairSize * 2);
+
+    while (true) {
+        size_t indPent = 0;
+        size_t b = pairSize * (2 + indPent) - 1;
+        if (b >= _nbrs.size())
+            break;
+
+        bool inserted = false;
+        for (size_t i = pairSize - 1; i < sorted.size(); i += pairSize) {
+            if (_nbrs[b] < sorted[i]) {
+                sorted.insert(sorted.begin() + i - pairSize + 1, _nbrs.begin() + b + 1, _nbrs.begin() + b + pairSize + 1);
+                inserted = true;
+                break;
+            }
+        }
+        if (!inserted)
+            sorted.insert(sorted.end(), _nbrs.begin() + b + 1, _nbrs.begin() + b + pairSize + 1);
+
+        for (size_t i = 0; i < sorted.size(); i++) {
+            std::cout << sorted[i] << " ";
+        }
+        std::cout << std::endl;
+        break;
+
+        indPent++;
+    }
+
+    // for (size_t i = pairSize - 1; i < _nbrs.size(); i += pairSize) {
+    //     uint a = _nbrs[i];
+    //     std::cout << "comparing " << _nbrs[b] << " and " << a << std::endl;
+    //     if (_nbrs[b] < a) {
+    //         _nbrs.insert(_nbrs.begin() + i - pairSize + 1, _nbrs.begin() + b + 1, _nbrs.begin() + b + pairSize + 1);
+    //         _nbrs.erase(_nbrs.begin() + b + 1, _nbrs.begin() + b + pairSize + 1);
+    //         print(level);
+    //     }
+    // }
+}
+
 void PmergeMe::_splitPairs(uint level) {
     size_t pairSize = _getPairSize(level);
     if (_nbrs.size() / (pairSize / 2) < 2) {
@@ -91,7 +138,8 @@ void PmergeMe::_splitPairs(uint level) {
     // std::cout << "after splitPairs at level " << level << std::endl;
     print(level);
     _splitPairs(level + 1);
-    _insertLast(pairSize, level);
+    _sortLevel(level, pairSize);
+    // _insertLast(level, pairSize);
 }
 
 void PmergeMe::sort() {
