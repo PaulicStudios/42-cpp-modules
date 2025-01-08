@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/08 19:52:26 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:26:37 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,8 @@ void PmergeMe::_sortPairs(uint level) {
         if (pair2 >= _nbrs.size()) {
             break;
         }
-        for (uint j = i + 1; j <= pair1 + 1; j++) {
-            pend.push_back(_nbrs[i + 1]);
-            _nbrs.erase(_nbrs.begin() + i + 1);
-        }
+        pend.insert(pend.end(), _nbrs.begin() + pair1 + 2 - level, _nbrs.begin() + pair1 + 2);
+        _nbrs.erase(_nbrs.begin() + pair1 + 2 - level, _nbrs.begin() + pair1 + 2);
         i -= level;
     }
 
