@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2024/12/10 10:37:00 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:58:19 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ class PmergeMe {
         std::vector<uint> _nbrs;
 
         void _splitPairs(uint level);
-        void _insertLast(uint pairSize, uint level);
-        size_t _getPairSize(uint level);
-        void _swapRange(size_t a, size_t b, size_t size);
-        void _sortLevel(uint level, uint pairSize);
+        void _swapRange(std::vector<uint> &vec, uint start, uint end, uint size);
 
     public:
         PmergeMe(std::vector<std::string> args);
