@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/08 17:23:09 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:52:26 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,49 @@ void PmergeMe::_sortPairs(uint level) {
         }
     }
     _sortPairs(level * 2);
+
+    std::vector<uint> pend;
+
+    for (uint i = pairSize - 1; i < _nbrs.size(); i += pairSize) {
+        uint pair1 = i + level - 1;
+        uint pair2 = i + pairSize - 1;
+        if (pair2 >= _nbrs.size()) {
+            break;
+        }
+        for (uint j = i + 1; j <= pair1 + 1; j++) {
+            pend.push_back(_nbrs[i + 1]);
+            _nbrs.erase(_nbrs.begin() + i + 1);
+        }
+        i -= level;
+    }
+
+    // Insert pend into _nbrs
+    for (uint i = level - 1; i < pend.size(); i += level) {
+        for (uint j = level - 1; j < _nbrs.size(); j += level) {
+            if (pend[i] < _nbrs[j]) {
+                _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + i - level + 1, pend.begin() + i + 1);
+                pend.erase(pend.begin() + i - level + 1, pend.begin() + i + 1);
+                break;
+            }
+        }
+        i -= level;
+    }
+
+    // Insert odd numbers into _nbrs
+    uint oddEnd = _nbrs.size() % level;
+    bool odd = _nbrs.size() / level % 2;
+    if (odd) {
+        uint oddPair = _nbrs.size() - oddEnd - 1;
+        for (uint j = level - 1; j < _nbrs.size(); j += level) {
+            if (_nbrs[oddPair] < _nbrs[j]) {
+                std::vector<uint> oddPairVec;
+                oddPairVec.insert(oddPairVec.end(), _nbrs.begin() + oddPair - level + 1, _nbrs.begin() + oddPair + 1);
+                _nbrs.insert(_nbrs.begin() + j - level + 1, oddPairVec.begin(), oddPairVec.end());
+                _nbrs.erase(_nbrs.begin() + oddPair + 1, _nbrs.begin() + oddPair + 1 + level);
+                break;
+            }
+        }
+    }
 }
 
 void PmergeMe::sort() {
