@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/08 13:15:11 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:23:09 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,33 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
     return *this;
 }
 
-void PmergeMe::_swapRange(std::vector<uint> &vec, uint start, uint end, uint size) {
-    for (uint i = 0; i < size; i++) {
-        std::swap(vec[start + i], vec[end + i]);
+void PmergeMe::_swapPairs(uint pair1, uint pair2, uint level) {
+    for (uint i = 0; i < level; i++) {
+        std::swap(_nbrs[pair1 - (level - 1) + i], _nbrs[pair2 - (level - 1) + i]);
     }
 }
 
-void PmergeMe::_splitPairs(uint level) {
+void PmergeMe::_sortPairs(uint level) {
     if (_nbrs.size() / level < 2) {
         return;
     }
 
-    for (uint i = 0; i < _nbrs.size(); i += level * 2) {
-        if (i + level * 2 <= _nbrs.size()) {
-            if (_nbrs[i] > _nbrs[i + level]) {
-                _swapRange(_nbrs, i, i + level, level);
-            }
+    uint pairSize = level * 2;
+    for (uint i = 0; i < _nbrs.size(); i += pairSize) {
+        uint pair1 = i + level - 1;
+        uint pair2 = i + pairSize - 1;
+        if (pair2 >= _nbrs.size()) {
+            break;
+        }
+        if (_nbrs[pair1] > _nbrs[pair2]) {
+            _swapPairs(pair1, pair2, level);
         }
     }
-    _splitPairs(level * 2);
+    _sortPairs(level * 2);
 }
 
 void PmergeMe::sort() {
-    _splitPairs(1);
+    _sortPairs(1);
     print(1);
 }
 

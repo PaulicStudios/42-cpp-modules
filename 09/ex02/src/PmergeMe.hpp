@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/08 12:58:19 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:15:29 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ class PmergeMe {
     private:
         std::vector<uint> _nbrs;
 
-        void _splitPairs(uint level);
-        void _swapRange(std::vector<uint> &vec, uint start, uint end, uint size);
+        void _sortPairs(uint level);
+        void _swapPairs(uint pair1, uint pair2, uint level);
 
     public:
         PmergeMe(std::vector<std::string> args);
