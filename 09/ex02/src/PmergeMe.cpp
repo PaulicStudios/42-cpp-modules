@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
+/*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/08 21:26:37 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:07:39 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
     return *this;
 }
 
-void PmergeMe::_swapPairs(uint pair1, uint pair2, uint level) {
-    for (uint i = 0; i < level; i++) {
-        std::swap(_nbrs[pair1 - (level - 1) + i], _nbrs[pair2 - (level - 1) + i]);
-    }
+void PmergeMe::sort() {
+    _sortPairs(1);
+    print(1);
 }
 
 void PmergeMe::_sortPairs(uint level) {
@@ -102,11 +101,6 @@ void PmergeMe::_sortPairs(uint level) {
     }
 }
 
-void PmergeMe::sort() {
-    _sortPairs(1);
-    print(1);
-}
-
 void PmergeMe::print(uint level) {
     for (uint i = 0; i < _nbrs.size(); i++) {
         std::cout << _nbrs[i] << " ";
@@ -116,4 +110,14 @@ void PmergeMe::print(uint level) {
         // }
     }
     std::cout << std::endl;
+}
+
+uint PmergeMe::_jacobsthal(uint n) {
+    return round((pow(2, n + 1) + pow(-1, n)) / 3);
+}
+
+void PmergeMe::_swapPairs(uint pair1, uint pair2, uint level) {
+    for (uint i = 0; i < level; i++) {
+        std::swap(_nbrs[pair1 - (level - 1) + i], _nbrs[pair2 - (level - 1) + i]);
+    }
 }
