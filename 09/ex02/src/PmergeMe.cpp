@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 13:07:39 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:29:14 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,29 @@ void PmergeMe::_sortPairs(uint level) {
     }
 
     // Insert pend into _nbrs
-    for (uint i = level - 1; i < pend.size(); i += level) {
+    uint indJac = 3;
+    while (pend.size() / level >= _jacobsthal(indJac)) {
+        uint rangeStart = _jacobsthal(indJac - 1);
+        uint rangeEnd = _jacobsthal(indJac);
+        for (uint i = rangeStart; i < rangeEnd; i++) {
+            for (uint j = level - 1; j < _nbrs.size(); j += level) {
+                uint pendInd = i * level - 1;
+                if (pend[pendInd] < _nbrs[j]) {
+                    _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
+                    break;
+                }
+            }
+        }
+        indJac++;
+    }
+
+    if (pend.size() > 0) {
         for (uint j = level - 1; j < _nbrs.size(); j += level) {
-            if (pend[i] < _nbrs[j]) {
-                _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + i - level + 1, pend.begin() + i + 1);
-                pend.erase(pend.begin() + i - level + 1, pend.begin() + i + 1);
+            if (pend[level - 1] < _nbrs[j]) {
+                _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + level - 1, pend.begin() + level);
                 break;
             }
         }
-        i -= level;
     }
 
     // Insert odd numbers into _nbrs
