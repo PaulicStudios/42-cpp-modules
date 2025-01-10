@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 21:22:30 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/11 00:29:58 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void PmergeMe<Container>::_insertOddNumbers(uint level) {
                 Container oddPairVec;
                 oddPairVec.insert(oddPairVec.end(), std::prev(oddPair, level - 1), std::next(oddPair, 1));
                 _nbrs.insert(std::prev(it, level - 1), oddPairVec.begin(), oddPairVec.end());
-                _nbrs.erase(std::next(oddPair, 1), std::next(oddPair, 1 + level));
+                _nbrs.erase(std::prev(_nbrs.end(), _nbrs.size() % level + level), std::prev(_nbrs.end(), _nbrs.size() % level));
                 break;
             }
         }
@@ -226,6 +226,6 @@ uint PmergeMe<Container>::_jacobsthal(uint n) {
 template <typename Container>
 void PmergeMe<Container>::_swapPairs(typename Container::iterator pair1, typename Container::iterator pair2, uint level) {
     for (uint i = 0; i < level; i++) {
-        std::swap(*(pair1 - (level - 1) + i), *(pair2 - (level - 1) + i));
+        std::swap(*(std::prev(pair1, (level - 1) - i)), *(std::prev(pair2, (level - 1) - i)));
     }
 }
