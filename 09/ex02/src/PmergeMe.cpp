@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 13:29:14 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:39:59 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,30 +72,41 @@ void PmergeMe::_sortPairs(uint level) {
         i -= level;
     }
 
-    // Insert pend into _nbrs
-    uint indJac = 3;
+    std::vector<uint> insertionOrder;
+
+    uint indJac = 2;
     while (pend.size() / level >= _jacobsthal(indJac)) {
         uint rangeStart = _jacobsthal(indJac - 1);
         uint rangeEnd = _jacobsthal(indJac);
-        for (uint i = rangeStart; i < rangeEnd; i++) {
-            for (uint j = level - 1; j < _nbrs.size(); j += level) {
-                uint pendInd = i * level - 1;
-                if (pend[pendInd] < _nbrs[j]) {
-                    _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
-                    break;
-                }
-            }
+        for (uint i = rangeEnd; i > rangeStart; i--) {
+            insertionOrder.push_back(i);
         }
         indJac++;
     }
 
-    if (pend.size() > 0) {
+    // Insert pend into _nbrs
+    for (uint i = 0; i < insertionOrder.size(); i++) {
+        uint pendInd = level - 1 + (insertionOrder[i] * level - 1);
+        _nbrs.insert(_nbrs.begin() + pendInd - level + 1, pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
+    }
+
+    // Remove already inserted pend from pend
+    std::sort(insertionOrder.begin(), insertionOrder.end(), std::greater<uint>());
+    for (uint i = 0; i < insertionOrder.size(); i++) {
+        uint pendInd = level - 1 + (insertionOrder[i] * level - 1);
+        pend.erase(pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
+    }
+
+    // Insert remaining pend into _nbrs
+    for (uint i = level - 1; i < pend.size(); i += level) {
         for (uint j = level - 1; j < _nbrs.size(); j += level) {
-            if (pend[level - 1] < _nbrs[j]) {
-                _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + level - 1, pend.begin() + level);
+            if (pend[i] < _nbrs[j]) {
+                _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + i - level + 1, pend.begin() + i + 1);
+                pend.erase(pend.begin() + i - level + 1, pend.begin() + i + 1);
                 break;
             }
         }
+        i -= level;
     }
 
     // Insert odd numbers into _nbrs
