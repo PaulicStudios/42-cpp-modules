@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/11 00:29:58 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/11 00:44:39 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void PmergeMe<Container>::_sortPairs(uint level) {
     }
 
     uint pairSize = level * 2;
-    for (typename Container::iterator it = _nbrs.begin(); it < _nbrs.end() - pairSize + 1; std::advance(it, pairSize)) {
+    for (typename Container::iterator it = _nbrs.begin(); it < std::prev(_nbrs.end(), pairSize - 1); std::advance(it, pairSize)) {
         typename Container::iterator pair1 = std::next(it, level - 1);
         typename Container::iterator pair2 = std::next(it, pairSize - 1);
         if (*pair1 > *pair2) {
@@ -168,7 +168,7 @@ template <typename Container>
 void PmergeMe<Container>::_insertPendUsingInsertionOrder(Container &pend, Container &insertionOrder, uint level) {
     for (typename Container::iterator it = insertionOrder.begin(); it != insertionOrder.end(); std::advance(it, 1)) {
         typename Container::iterator pendInd = std::next(pend.begin(), (*it - 1) * level - 1);
-        for (typename Container::iterator j = _nbrs.begin() + level - 1; j < _nbrs.end(); std::advance(j, level)) {
+        for (typename Container::iterator j = std::next(_nbrs.begin(), level - 1); j < _nbrs.end(); std::advance(j, level)) {
             if (*pendInd < *j) {
                 _nbrs.insert(std::prev(j, level - 1), std::prev(pendInd, level - 1), std::next(pendInd, 1));
                 break;
