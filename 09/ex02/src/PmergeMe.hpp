@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 21:12:02 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 21:22:30 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,11 +166,11 @@ Container PmergeMe<Container>::_getInsertionOrder(Container &pend, uint level) {
 
 template <typename Container>
 void PmergeMe<Container>::_insertPendUsingInsertionOrder(Container &pend, Container &insertionOrder, uint level) {
-    for (typename Container::iterator it = insertionOrder.begin(); it != insertionOrder.end(); ++it) {
-        typename Container::iterator pendInd = pend.begin() + (*it - 1) * level - 1;
-        for (typename Container::iterator j = _nbrs.begin() + level - 1; j < _nbrs.end(); j += level) {
+    for (typename Container::iterator it = insertionOrder.begin(); it != insertionOrder.end(); std::advance(it, 1)) {
+        typename Container::iterator pendInd = std::next(pend.begin(), (*it - 1) * level - 1);
+        for (typename Container::iterator j = _nbrs.begin() + level - 1; j < _nbrs.end(); std::advance(j, level)) {
             if (*pendInd < *j) {
-                _nbrs.insert(j - level + 1, pendInd - level + 1, pendInd + 1);
+                _nbrs.insert(std::prev(j, level - 1), std::prev(pendInd, level - 1), std::next(pendInd, 1));
                 break;
             }
         }
@@ -178,25 +178,25 @@ void PmergeMe<Container>::_insertPendUsingInsertionOrder(Container &pend, Contai
 
     // Remove already inserted pend from pend
     std::sort(insertionOrder.begin(), insertionOrder.end(), std::greater<uint>());
-    for (typename Container::iterator it = insertionOrder.begin(); it != insertionOrder.end(); ++it) {
-        typename Container::iterator pendInd = pend.begin() + (*it - 1) * level - 1;
-        pend.erase(pendInd - level + 1, pendInd + 1);
+    for (typename Container::iterator it = insertionOrder.begin(); it != insertionOrder.end(); std::advance(it, 1)) {
+        typename Container::iterator pendInd = std::next(pend.begin(), (*it - 1) * level - 1);
+        pend.erase(std::prev(pendInd, level - 1), std::next(pendInd, 1));
     }
 }
 
 template <typename Container>
 void PmergeMe<Container>::_insertRemainingPend(Container &pend, uint level) {
-    for (typename Container::iterator it = pend.begin() + level - 1; it < pend.end(); it += level) {
+    for (typename Container::iterator it = std::next(pend.begin(), level - 1); it < pend.end(); std::advance(it, level)) {
         bool inserted = false;
-        for (typename Container::iterator j = _nbrs.begin() + level - 1; j < _nbrs.end(); j += level) {
+        for (typename Container::iterator j = std::next(_nbrs.begin(), level - 1); j < _nbrs.end(); std::advance(j, level)) {
             if (*it < *j) {
-                _nbrs.insert(j - level + 1, it - level + 1, it + 1);
+                _nbrs.insert(std::prev(j, level - 1), std::prev(it, level - 1), std::next(it, 1));
                 inserted = true;
                 break;
             }
         }
         if (!inserted) {
-            _nbrs.insert(_nbrs.end() - _nbrs.size() % level, it - level + 1, it + 1);
+            _nbrs.insert(std::prev(_nbrs.end(), _nbrs.size() % level), std::prev(it, level - 1), std::next(it, 1));
         }
     }
 }
@@ -205,13 +205,13 @@ template <typename Container>
 void PmergeMe<Container>::_insertOddNumbers(uint level) {
     bool odd = (_nbrs.size() / level) % 2;
     if (odd) {
-        typename Container::iterator oddPair = _nbrs.end() - _nbrs.size() % level - 1;
-        for (typename Container::iterator it = _nbrs.begin() + level - 1; it < _nbrs.end(); it += level) {
+        typename Container::iterator oddPair = std::prev(_nbrs.end(), _nbrs.size() % level + 1);
+        for (typename Container::iterator it = std::next(_nbrs.begin(), level - 1); it < _nbrs.end(); std::advance(it, level)) {
             if (*oddPair < *it) {
                 Container oddPairVec;
-                oddPairVec.insert(oddPairVec.end(), oddPair - level + 1, oddPair + 1);
-                _nbrs.insert(it - level + 1, oddPairVec.begin(), oddPairVec.end());
-                _nbrs.erase(oddPair + 1, oddPair + 1 + level);
+                oddPairVec.insert(oddPairVec.end(), std::prev(oddPair, level - 1), std::next(oddPair, 1));
+                _nbrs.insert(std::prev(it, level - 1), oddPairVec.begin(), oddPairVec.end());
+                _nbrs.erase(std::next(oddPair, 1), std::next(oddPair, 1 + level));
                 break;
             }
         }
