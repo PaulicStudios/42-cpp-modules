@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 14:39:59 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:55:23 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,18 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
 }
 
 void PmergeMe::sort() {
+    _removeDuplicates();
     _sortPairs(1);
     print(1);
+}
+
+void PmergeMe::_removeDuplicates() {
+    for (std::vector<uint>::iterator it = _nbrs.begin(); it != _nbrs.end(); ++it) {
+        if (std::find(_nbrs.begin(), it, *it) != it) {
+            _nbrs.erase(it);
+            it = _nbrs.begin();
+        }
+    }
 }
 
 void PmergeMe::_sortPairs(uint level) {

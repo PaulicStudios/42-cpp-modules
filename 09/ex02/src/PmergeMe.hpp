@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pgrossma <pgrossma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 13:06:46 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:52:11 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ class PmergeMe {
     private:
         std::vector<uint> _nbrs;
 
+        void _removeDuplicates();
         void _sortPairs(uint level);
         void _swapPairs(uint pair1, uint pair2, uint level);
         uint _jacobsthal(uint n);
