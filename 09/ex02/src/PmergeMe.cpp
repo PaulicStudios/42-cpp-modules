@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 15:29:13 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:32:57 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,21 @@ void PmergeMe::_sortPairs(uint level) {
         indJac++;
     }
 
-    // Insert pend into _nbrs
+    // Insert pend into _nbrs in insertionOrder
     for (uint i = 0; i < insertionOrder.size(); i++) {
-        uint pendInd = level - 1 + (insertionOrder[i] * level - 1);
-        _nbrs.insert(_nbrs.begin() + pendInd - level + 1, pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
+        uint pendInd = (insertionOrder[i] - 1) * level - 1;
+        for (uint j = level - 1; j < _nbrs.size(); j += level) {
+            if (pend[pendInd] < _nbrs[j]) {
+                _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
+                break;
+            }
+        }
     }
 
     // Remove already inserted pend from pend
     std::sort(insertionOrder.begin(), insertionOrder.end(), std::greater<uint>());
     for (uint i = 0; i < insertionOrder.size(); i++) {
-        uint pendInd = level - 1 + (insertionOrder[i] * level - 1);
+        uint pendInd = (insertionOrder[i] - 1) * level - 1;
         pend.erase(pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
     }
 
@@ -124,7 +129,7 @@ void PmergeMe::_sortPairs(uint level) {
 
     // Insert odd numbers into _nbrs
     uint oddEnd = _nbrs.size() % level;
-    bool odd = _nbrs.size() / level % 2;
+    bool odd = (_nbrs.size() / level) % 2;
     if (odd) {
         uint oddPair = _nbrs.size() - oddEnd - 1;
         for (uint j = level - 1; j < _nbrs.size(); j += level) {
