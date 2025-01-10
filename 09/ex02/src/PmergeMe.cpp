@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 18:05:00 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:13:58 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
     return *this;
 }
 
-void PmergeMe::sort() {
+std::vector<uint> &PmergeMe::sort() {
     _removeDuplicates();
     _sortPairs(1);
-    print(1);
+    return _nbrs;
 }
 
 void PmergeMe::_removeDuplicates() {
@@ -76,45 +76,14 @@ void PmergeMe::_sortPairs(uint level) {
     // Get insertion order for pend using jacobsthal numbers
     std::vector<uint> insertionOrder = _getInsertionOrder(pend, level);
 
-    // Insert pend into _nbrs in insertionOrder
+    // Insert pend into _nbrs in insertionOrder and remove from pend
     _insertPendUsingInsertionOrder(pend, insertionOrder, level);
 
-    // Remove already inserted pend from pend
-    std::sort(insertionOrder.begin(), insertionOrder.end(), std::greater<uint>());
-    for (uint i = 0; i < insertionOrder.size(); i++) {
-        uint pendInd = (insertionOrder[i] - 1) * level - 1;
-        pend.erase(pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
-    }
-
     // Insert remaining pend into _nbrs
-    for (uint i = level - 1; i < pend.size(); i += level) {
-        bool inserted = false;
-        for (uint j = level - 1; j < _nbrs.size(); j += level) {
-            if (pend[i] < _nbrs[j]) {
-                _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + i - level + 1, pend.begin() + i + 1);
-                inserted = true;
-                break;
-            }
-        }
-        if (!inserted) {
-            _nbrs.insert(_nbrs.end() - _nbrs.size() % level, pend.begin() + i - level + 1, pend.begin() + i + 1);
-        }
-    }
+    _insertRemainingPend(pend, level);
 
     // Insert odd numbers into _nbrs
-    bool odd = (_nbrs.size() / level) % 2;
-    if (odd) {
-        uint oddPair = _nbrs.size() - _nbrs.size() % level - 1;
-        for (uint j = level - 1; j < _nbrs.size(); j += level) {
-            if (_nbrs[oddPair] < _nbrs[j]) {
-                std::vector<uint> oddPairVec;
-                oddPairVec.insert(oddPairVec.end(), _nbrs.begin() + oddPair - level + 1, _nbrs.begin() + oddPair + 1);
-                _nbrs.insert(_nbrs.begin() + j - level + 1, oddPairVec.begin(), oddPairVec.end());
-                _nbrs.erase(_nbrs.begin() + oddPair + 1, _nbrs.begin() + oddPair + 1 + level);
-                break;
-            }
-        }
-    }
+    _insertOddNumbers(level);
 }
 
 std::vector<uint> PmergeMe::_fillPend(uint level, uint pairSize) {
@@ -159,17 +128,45 @@ void PmergeMe::_insertPendUsingInsertionOrder(std::vector<uint> &pend, std::vect
             }
         }
     }
+
+    // Remove already inserted pend from pend
+    std::sort(insertionOrder.begin(), insertionOrder.end(), std::greater<uint>());
+    for (uint i = 0; i < insertionOrder.size(); i++) {
+        uint pendInd = (insertionOrder[i] - 1) * level - 1;
+        pend.erase(pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
+    }
 }
 
-void PmergeMe::print(uint level) {
-    for (uint i = 0; i < _nbrs.size(); i++) {
-        std::cout << _nbrs[i] << " ";
-        (void)level;
-        // if ((i + 1) % (_getPairSize(level) / 2) == 0) {
-        //     std::cout << "| ";
-        // }
+void PmergeMe::_insertRemainingPend(std::vector<uint> &pend, uint level) {
+    for (uint i = level - 1; i < pend.size(); i += level) {
+        bool inserted = false;
+        for (uint j = level - 1; j < _nbrs.size(); j += level) {
+            if (pend[i] < _nbrs[j]) {
+                _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + i - level + 1, pend.begin() + i + 1);
+                inserted = true;
+                break;
+            }
+        }
+        if (!inserted) {
+            _nbrs.insert(_nbrs.end() - _nbrs.size() % level, pend.begin() + i - level + 1, pend.begin() + i + 1);
+        }
     }
-    std::cout << std::endl;
+}
+
+void PmergeMe::_insertOddNumbers(uint level) {
+    bool odd = (_nbrs.size() / level) % 2;
+    if (odd) {
+        uint oddPair = _nbrs.size() - _nbrs.size() % level - 1;
+        for (uint j = level - 1; j < _nbrs.size(); j += level) {
+            if (_nbrs[oddPair] < _nbrs[j]) {
+                std::vector<uint> oddPairVec;
+                oddPairVec.insert(oddPairVec.end(), _nbrs.begin() + oddPair - level + 1, _nbrs.begin() + oddPair + 1);
+                _nbrs.insert(_nbrs.begin() + j - level + 1, oddPairVec.begin(), oddPairVec.end());
+                _nbrs.erase(_nbrs.begin() + oddPair + 1, _nbrs.begin() + oddPair + 1 + level);
+                break;
+            }
+        }
+    }
 }
 
 uint PmergeMe::_jacobsthal(uint n) {
