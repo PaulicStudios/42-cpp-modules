@@ -2,11 +2,10 @@ NAME	:=	PmergeMe
 
 CC		:=	c++
 INCDIR	:=	src
-CFLAGS	:=  -Wextra -Wall -Werror -std=c++17
+CFLAGS	:=  -Wextra -Wall -Werror -std=c++17 #-g -fsanitize=address -fsanitize=undefined
 
 VPATH	:=	src
-SOURCES	:=	main.cpp \
-			PmergeMe.cpp
+SOURCES	:=	main.cpp
 
 OBJDIR	:=	obj
 OBJECTS	:=	$(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.o))
