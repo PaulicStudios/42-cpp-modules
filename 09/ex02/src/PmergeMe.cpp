@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 18:33:43 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:43:29 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,15 @@ void PmergeMe::_sortPairs(uint level) {
 
 std::vector<uint> PmergeMe::_fillPend(uint level, uint pairSize) {
     std::vector<uint> pend;
-    for (uint i = pairSize - 1; i < _nbrs.size(); i += pairSize) {
-        uint pair1 = i + level - 1;
-        uint pair2 = i + pairSize - 1;
-        if (pair2 >= _nbrs.size()) {
+    for (std::vector<uint>::iterator it = _nbrs.begin() + pairSize - 1; it < _nbrs.end(); it += pairSize) {
+        std::vector<uint>::iterator pair1 = it + (level - 1);
+        std::vector<uint>::iterator pair2 = it + (pairSize - 1);
+        if (pair2 >= _nbrs.end()) {
             break;
         }
-        pend.insert(pend.end(), _nbrs.begin() + pair1 + 2 - level, _nbrs.begin() + pair1 + 2);
-        _nbrs.erase(_nbrs.begin() + pair1 + 2 - level, _nbrs.begin() + pair1 + 2);
-        i -= level;
+        pend.insert(pend.end(), pair1 + 2 - level, pair1 + 2);
+        _nbrs.erase(pair1 + 2 - level, pair1 + 2);
+        it -= level;
     }
 
     return pend;
@@ -116,11 +116,11 @@ std::vector<uint> PmergeMe::_getInsertionOrder(std::vector<uint> &pend, uint lev
 }
 
 void PmergeMe::_insertPendUsingInsertionOrder(std::vector<uint> &pend, std::vector<uint> &insertionOrder, uint level) {
-    for (uint i = 0; i < insertionOrder.size(); i++) {
-        uint pendInd = (insertionOrder[i] - 1) * level - 1;
-        for (uint j = level - 1; j < _nbrs.size(); j += level) {
-            if (pend[pendInd] < _nbrs[j]) {
-                _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
+    for (std::vector<uint>::iterator it = insertionOrder.begin(); it != insertionOrder.end(); ++it) {
+        std::vector<uint>::iterator pendInd = pend.begin() + (*it - 1) * level - 1;
+        for (std::vector<uint>::iterator j = _nbrs.begin() + level - 1; j < _nbrs.end(); j += level) {
+            if (*pendInd < *j) {
+                _nbrs.insert(j - level + 1, pendInd - level + 1, pendInd + 1);
                 break;
             }
         }
@@ -128,24 +128,24 @@ void PmergeMe::_insertPendUsingInsertionOrder(std::vector<uint> &pend, std::vect
 
     // Remove already inserted pend from pend
     std::sort(insertionOrder.begin(), insertionOrder.end(), std::greater<uint>());
-    for (uint i = 0; i < insertionOrder.size(); i++) {
-        uint pendInd = (insertionOrder[i] - 1) * level - 1;
-        pend.erase(pend.begin() + pendInd - level + 1, pend.begin() + pendInd + 1);
+    for (std::vector<uint>::iterator it = insertionOrder.begin(); it != insertionOrder.end(); ++it) {
+        std::vector<uint>::iterator pendInd = pend.begin() + (*it - 1) * level - 1;
+        pend.erase(pendInd - level + 1, pendInd + 1);
     }
 }
 
 void PmergeMe::_insertRemainingPend(std::vector<uint> &pend, uint level) {
-    for (uint i = level - 1; i < pend.size(); i += level) {
+    for (std::vector<uint>::iterator it = pend.begin() + level - 1; it < pend.end(); it += level) {
         bool inserted = false;
-        for (uint j = level - 1; j < _nbrs.size(); j += level) {
-            if (pend[i] < _nbrs[j]) {
-                _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + i - level + 1, pend.begin() + i + 1);
+        for (std::vector<uint>::iterator j = _nbrs.begin() + level - 1; j < _nbrs.end(); j += level) {
+            if (*it < *j) {
+                _nbrs.insert(j - level + 1, it - level + 1, it + 1);
                 inserted = true;
                 break;
             }
         }
         if (!inserted) {
-            _nbrs.insert(_nbrs.end() - _nbrs.size() % level, pend.begin() + i - level + 1, pend.begin() + i + 1);
+            _nbrs.insert(_nbrs.end() - _nbrs.size() % level, it - level + 1, it + 1);
         }
     }
 }
@@ -153,13 +153,13 @@ void PmergeMe::_insertRemainingPend(std::vector<uint> &pend, uint level) {
 void PmergeMe::_insertOddNumbers(uint level) {
     bool odd = (_nbrs.size() / level) % 2;
     if (odd) {
-        uint oddPair = _nbrs.size() - _nbrs.size() % level - 1;
-        for (uint j = level - 1; j < _nbrs.size(); j += level) {
-            if (_nbrs[oddPair] < _nbrs[j]) {
+        std::vector<uint>::iterator oddPair = _nbrs.end() - _nbrs.size() % level - 1;
+        for (std::vector<uint>::iterator it = _nbrs.begin() + level - 1; it < _nbrs.end(); it += level) {
+            if (*oddPair < *it) {
                 std::vector<uint> oddPairVec;
-                oddPairVec.insert(oddPairVec.end(), _nbrs.begin() + oddPair - level + 1, _nbrs.begin() + oddPair + 1);
-                _nbrs.insert(_nbrs.begin() + j - level + 1, oddPairVec.begin(), oddPairVec.end());
-                _nbrs.erase(_nbrs.begin() + oddPair + 1, _nbrs.begin() + oddPair + 1 + level);
+                oddPairVec.insert(oddPairVec.end(), oddPair - level + 1, oddPair + 1);
+                _nbrs.insert(it - level + 1, oddPairVec.begin(), oddPairVec.end());
+                _nbrs.erase(oddPair + 1, oddPair + 1 + level);
                 break;
             }
         }
