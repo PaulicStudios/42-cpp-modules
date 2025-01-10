@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 14:55:23 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:29:13 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,17 @@ void PmergeMe::_sortPairs(uint level) {
 
     // Insert remaining pend into _nbrs
     for (uint i = level - 1; i < pend.size(); i += level) {
+        bool inserted = false;
         for (uint j = level - 1; j < _nbrs.size(); j += level) {
             if (pend[i] < _nbrs[j]) {
                 _nbrs.insert(_nbrs.begin() + j - level + 1, pend.begin() + i - level + 1, pend.begin() + i + 1);
-                pend.erase(pend.begin() + i - level + 1, pend.begin() + i + 1);
+                inserted = true;
                 break;
             }
         }
-        i -= level;
+        if (!inserted) {
+            _nbrs.insert(_nbrs.end() - _nbrs.size() % level, pend.begin() + i - level + 1, pend.begin() + i + 1);
+        }
     }
 
     // Insert odd numbers into _nbrs
