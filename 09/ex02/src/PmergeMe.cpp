@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 17:32:57 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:55:15 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 PmergeMe::PmergeMe(std::vector<std::string> args) {
     for (std::vector<std::string>::iterator it = args.begin(); it != args.end(); ++it) {
-        try {
-            uint nbr = std::stoi(*it);
-            _nbrs.push_back(nbr);
-        } catch (std::exception &e) {
-            throw std::runtime_error("Invalid input");
+        long nbr = std::stol(*it);
+        if (nbr < 0) {
+            throw std::runtime_error("Negative number");
+        } else if (nbr > std::numeric_limits<uint>::max()) {
+            throw std::runtime_error("Number too large");
         }
+        _nbrs.push_back(static_cast<uint>(nbr));
     }
 }
 
