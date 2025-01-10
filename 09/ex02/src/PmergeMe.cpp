@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:11:30 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 18:13:58 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:33:43 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,10 @@ void PmergeMe::_sortPairs(uint level) {
     }
 
     uint pairSize = level * 2;
-    for (uint i = 0; i < _nbrs.size(); i += pairSize) {
-        uint pair1 = i + level - 1;
-        uint pair2 = i + pairSize - 1;
-        if (pair2 >= _nbrs.size()) {
-            break;
-        }
-        if (_nbrs[pair1] > _nbrs[pair2]) {
+    for (std::vector<uint>::iterator it = _nbrs.begin(); it < _nbrs.end() - pairSize + 1; it += pairSize) {
+        std::vector<uint>::iterator pair1 = it + (level - 1);
+        std::vector<uint>::iterator pair2 = it + (pairSize - 1);
+        if (*pair1 > *pair2) {
             _swapPairs(pair1, pair2, level);
         }
     }
@@ -173,8 +170,8 @@ uint PmergeMe::_jacobsthal(uint n) {
     return round((pow(2, n + 1) + pow(-1, n)) / 3);
 }
 
-void PmergeMe::_swapPairs(uint pair1, uint pair2, uint level) {
+void PmergeMe::_swapPairs(std::vector<uint>::iterator pair1, std::vector<uint>::iterator pair2, uint level) {
     for (uint i = 0; i < level; i++) {
-        std::swap(_nbrs[pair1 - (level - 1) + i], _nbrs[pair2 - (level - 1) + i]);
+        std::swap(*(pair1 - (level - 1) + i), *(pair2 - (level - 1) + i));
     }
 }

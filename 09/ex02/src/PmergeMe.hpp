@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 18:14:06 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:32:55 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class PmergeMe {
 
         void _removeDuplicates();
         void _sortPairs(uint level);
-        void _swapPairs(uint pair1, uint pair2, uint level);
+        void _swapPairs(std::vector<uint>::iterator pair1, std::vector<uint>::iterator pair2, uint level);
         uint _jacobsthal(uint n);
         std::vector<uint> _getInsertionOrder(std::vector<uint> &pend, uint level);
         std::vector<uint> _fillPend(uint level, uint pairSize);
