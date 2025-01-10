@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/10 19:55:23 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/10 21:12:02 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ class PmergeMe {
 
 template <typename Container>
 PmergeMe<Container>::PmergeMe(std::vector<std::string> args) {
-    for (std::vector<std::string>::iterator it = args.begin(); it != args.end(); ++it) {
+    for (std::vector<std::string>::iterator it = args.begin(); it != args.end(); std::advance(it, 1)) {
         long nbr = std::stol(*it);
         if (nbr < 0) {
             throw std::runtime_error("Negative number");
@@ -78,7 +78,7 @@ Container &PmergeMe<Container>::sort() {
 
 template <typename Container>
 void PmergeMe<Container>::_removeDuplicates() {
-    for (typename Container::iterator it = _nbrs.begin(); it != _nbrs.end(); ++it) {
+    for (typename Container::iterator it = _nbrs.begin(); it != _nbrs.end(); std::advance(it, 1)) {
         if (std::find(_nbrs.begin(), it, *it) != it) {
             _nbrs.erase(it);
             it = _nbrs.begin();
@@ -93,9 +93,9 @@ void PmergeMe<Container>::_sortPairs(uint level) {
     }
 
     uint pairSize = level * 2;
-    for (typename Container::iterator it = _nbrs.begin(); it < _nbrs.end() - pairSize + 1; it += pairSize) {
-        typename Container::iterator pair1 = it + (level - 1);
-        typename Container::iterator pair2 = it + (pairSize - 1);
+    for (typename Container::iterator it = _nbrs.begin(); it < _nbrs.end() - pairSize + 1; std::advance(it, pairSize)) {
+        typename Container::iterator pair1 = std::next(it, level - 1);
+        typename Container::iterator pair2 = std::next(it, pairSize - 1);
         if (*pair1 > *pair2) {
             _swapPairs(pair1, pair2, level);
         }
@@ -123,15 +123,25 @@ void PmergeMe<Container>::_sortPairs(uint level) {
 template <typename Container>
 Container PmergeMe<Container>::_fillPend(uint level, uint pairSize) {
     Container pend;
-    for (typename Container::iterator it = _nbrs.begin() + pairSize - 1; it < _nbrs.end(); it += pairSize) {
-        typename Container::iterator pair1 = it + (level - 1);
-        typename Container::iterator pair2 = it + (pairSize - 1);
-        if (pair2 >= _nbrs.end()) {
+    for (typename Container::iterator it = std::next(_nbrs.begin(), pairSize - 1); it < _nbrs.end(); std::advance(it, pairSize)) {
+        if (std::next(it, pairSize - 1) >= _nbrs.end()) {
             break;
         }
-        pend.insert(pend.end(), pair1 + 2 - level, pair1 + 2);
-        _nbrs.erase(pair1 + 2 - level, pair1 + 2);
-        it -= level;
+
+        typename Container::iterator pair1 = std::next(it, level - 1);
+        typename Container::iterator start;
+
+        int startInd = 2 - level;
+        if (startInd < 0) {
+            startInd = -startInd;
+            start = std::prev(pair1, startInd);
+        } else {
+            start = std::next(pair1, startInd);
+        }
+        
+        pend.insert(pend.end(), start, std::next(pair1, 2));
+        _nbrs.erase(start, std::next(pair1, 2));
+        it = std::prev(it, level);
     }
 
     return pend;
