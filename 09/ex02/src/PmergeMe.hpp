@@ -6,14 +6,12 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/11 13:24:06 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:38:19 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <vector>
-#include <list>
 #include <algorithm>
 #include <iostream>
 #include <cstdlib>
