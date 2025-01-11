@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/11 13:38:19 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:41:57 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <algorithm>
 #include <iostream>
 #include <cstdlib>
+#include <vector>
+#include <cmath>
 
 template <typename Container>
 class PmergeMe {

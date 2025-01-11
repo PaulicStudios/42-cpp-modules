@@ -6,7 +6,7 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:14:10 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/11 13:38:33 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:42:00 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <deque>
 #include <vector>
+#include <chrono>
 
 int main(int argc, char **argv) {
     if (argc < 2) {
