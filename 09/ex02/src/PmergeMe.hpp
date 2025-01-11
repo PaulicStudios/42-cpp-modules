@@ -6,13 +6,14 @@
 /*   By: pgrossma <pgrossma@student.42heilbronn.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:58:37 by pgrossma          #+#    #+#             */
-/*   Updated: 2025/01/11 12:23:19 by pgrossma         ###   ########.fr       */
+/*   Updated: 2025/01/11 13:24:06 by pgrossma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <vector>
+#include <list>
 #include <algorithm>
 #include <iostream>
 #include <cstdlib>
@@ -26,9 +27,9 @@ class PmergeMe {
         void _sortPairs(uint level);
         void _swapPairs(typename Container::iterator pair1, typename Container::iterator pair2, uint level);
         uint _jacobsthal(uint n);
-        Container _getInsertionOrder(Container &pend, uint level);
+        std::vector<uint> _getInsertionOrder(Container &pend, uint level);
         Container _fillPend(uint level, uint pairSize);
-        void _insertPendUsingInsertionOrder(Container &pend, Container &insertionOrder, uint level);
+        void _insertPendUsingInsertionOrder(Container &pend, std::vector<uint> &insertionOrder, uint level);
         void _insertRemainingPend(Container &pend, uint level);
         void _insertOddNumbers(uint level);
 
@@ -106,7 +107,7 @@ void PmergeMe<Container>::_sortPairs(uint level) {
     Container pend = _fillPend(level, pairSize);
 
     // Get insertion order for pend using jacobsthal numbers
-    Container insertionOrder = _getInsertionOrder(pend, level);
+    std::vector<uint> insertionOrder = _getInsertionOrder(pend, level);
 
     // Insert pend into _nbrs in insertionOrder and remove from pend
     _insertPendUsingInsertionOrder(pend, insertionOrder, level);
@@ -123,12 +124,12 @@ void PmergeMe<Container>::_sortPairs(uint level) {
 template <typename Container>
 Container PmergeMe<Container>::_fillPend(uint level, uint pairSize) {
     Container pend;
-    for (typename Container::iterator it = std::next(_nbrs.begin(), pairSize - 1); it != std::prev(_nbrs.end(), _nbrs.size() % pairSize); std::advance(it, pairSize)) {
-        if (std::next(it, pairSize - 1) >= _nbrs.end()) {
+    for (uint i = pairSize - 1; i < _nbrs.size(); i += pairSize) {
+        if (i + pairSize - 1 >= _nbrs.size()) {
             break;
         }
 
-        typename Container::iterator pair1 = std::next(it, level - 1);
+        typename Container::iterator pair1 = std::next(_nbrs.begin(), i + level - 1);
         typename Container::iterator start;
 
         int startInd = 2 - level;
@@ -138,18 +139,18 @@ Container PmergeMe<Container>::_fillPend(uint level, uint pairSize) {
         } else {
             start = std::next(pair1, startInd);
         }
-        
+
         pend.insert(pend.end(), start, std::next(pair1, 2));
         _nbrs.erase(start, std::next(pair1, 2));
-        it = std::prev(it, level);
+        i -= level;
     }
 
     return pend;
 }
 
 template <typename Container>
-Container PmergeMe<Container>::_getInsertionOrder(Container &pend, uint level) {
-    Container insertionOrder;
+std::vector<uint> PmergeMe<Container>::_getInsertionOrder(Container &pend, uint level) {
+    std::vector<uint> insertionOrder;
     uint indJac = 2;
 
     while (pend.size() / level >= _jacobsthal(indJac)) {
@@ -165,8 +166,8 @@ Container PmergeMe<Container>::_getInsertionOrder(Container &pend, uint level) {
 }
 
 template <typename Container>
-void PmergeMe<Container>::_insertPendUsingInsertionOrder(Container &pend, Container &insertionOrder, uint level) {
-    for (typename Container::iterator it = insertionOrder.begin(); it != insertionOrder.end(); std::advance(it, 1)) {
+void PmergeMe<Container>::_insertPendUsingInsertionOrder(Container &pend, std::vector<uint> &insertionOrder, uint level) {
+    for (std::vector<uint>::iterator it = insertionOrder.begin(); it != insertionOrder.end(); std::advance(it, 1)) {
         typename Container::iterator pendInd = std::next(pend.begin(), (*it - 1) * level - 1);
         for (typename Container::iterator j = std::next(_nbrs.begin(), level - 1); j != std::prev(_nbrs.end(), _nbrs.size() % level); std::advance(j, level)) {
             if (*pendInd < *j) {
@@ -178,7 +179,7 @@ void PmergeMe<Container>::_insertPendUsingInsertionOrder(Container &pend, Contai
 
     // Remove already inserted pend from pend
     std::sort(insertionOrder.begin(), insertionOrder.end(), std::greater<uint>());
-    for (typename Container::iterator it = insertionOrder.begin(); it != insertionOrder.end(); std::advance(it, 1)) {
+    for (std::vector<uint>::iterator it = insertionOrder.begin(); it != insertionOrder.end(); std::advance(it, 1)) {
         typename Container::iterator pendInd = std::next(pend.begin(), (*it - 1) * level - 1);
         pend.erase(std::prev(pendInd, level - 1), std::next(pendInd, 1));
     }
@@ -186,7 +187,8 @@ void PmergeMe<Container>::_insertPendUsingInsertionOrder(Container &pend, Contai
 
 template <typename Container>
 void PmergeMe<Container>::_insertRemainingPend(Container &pend, uint level) {
-    for (typename Container::iterator it = std::next(pend.begin(), level - 1); it < pend.end(); std::advance(it, level)) {
+    for (uint i = level - 1; i < pend.size(); i += level) {
+        typename Container::iterator it = std::next(pend.begin(), i);
         bool inserted = false;
         for (typename Container::iterator j = std::next(_nbrs.begin(), level - 1); j != std::prev(_nbrs.end(), _nbrs.size() % level); std::advance(j, level)) {
             if (*it < *j) {
@@ -206,7 +208,8 @@ void PmergeMe<Container>::_insertOddNumbers(uint level) {
     bool odd = (_nbrs.size() / level) % 2;
     if (odd) {
         typename Container::iterator oddPair = std::prev(_nbrs.end(), _nbrs.size() % level + 1);
-        for (typename Container::iterator it = std::next(_nbrs.begin(), level - 1); it < _nbrs.end(); std::advance(it, level)) {
+        for (uint j = level - 1; j < _nbrs.size(); j += level) {
+            typename Container::iterator it = std::next(_nbrs.begin(), j);
             if (*oddPair < *it) {
                 Container oddPairVec;
                 oddPairVec.insert(oddPairVec.end(), std::prev(oddPair, level - 1), std::next(oddPair, 1));
